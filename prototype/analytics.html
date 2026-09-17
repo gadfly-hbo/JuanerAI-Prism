@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>增长分析 · JuanerAI Prism</title>
+<link rel="stylesheet" href="assets/prism.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4.5 L18.5 18.5 H1.5 Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.08)"/>
+          <line x1="14" y1="12.5" x2="22.5" y2="9.5" stroke="#e0913c" stroke-width="1.3"/>
+          <line x1="14.8" y1="14.5" x2="23" y2="14.5" stroke="#4fae62" stroke-width="1.3"/>
+          <line x1="14" y1="16.3" x2="22.5" y2="19.3" stroke="#7b5ee3" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div><strong>Prism · 棱镜</strong><span>JuanerAI 内容运营工作台</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">工作台</div>
+      <a href="index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>战略驾驶舱</a>
+      <a href="topics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>选题雷达<span class="count">6</span></a>
+      <a href="studio.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 L20 4"/><path d="M14 4 h6 v6"/></svg>内容工作室</a>
+      <a href="channels.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg>四平台适配</a>
+      <a href="review.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 l7 3 v6 c0 4.5 -3 7.5 -7 9 c-4 -1.5 -7 -4.5 -7 -9 v-6 Z"/><path d="M9 12 l2 2 l4 -4"/></svg>审查中心<span class="count">3</span></a>
+      <a href="calendar.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>日历与发布</a>
+      <div class="nav-group">增长与学习</div>
+      <a href="analytics.html" class="active"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 V10"/><path d="M10 20 V4"/><path d="M16 20 v-7"/><path d="M22 20 H2"/></svg>增长分析</a>
+      <a href="library.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4 h11 a3 3 0 0 1 3 3 v13 H8 a3 3 0 0 1 -3 -3 Z"/><path d="M5 17 a3 3 0 0 1 3 -3 h11"/></svg>假设与策略库</a>
+      <a href="community.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12 a8 8 0 1 1 -3.2 -6.4 L21 5 l-1 3.4 A7.9 7.9 0 0 1 21 12 Z"/></svg>评论与线索<span class="count">5</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">总</div>
+      <div><div class="small strong">人类总编</div><small>发布前必须经你批准</small></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>增长分析</h1>
+        <p class="desc">不看虚荣指标。这里追踪的是：内容 → 产品页 → 下载 → 首次真实分析 → 重复使用 → 团队/企业信号。每一层都能回溯到具体是哪条内容带来的。</p>
+      </div>
+      <div class="actions">
+        <button class="btn">⬆ 导入平台数据（CSV）</button>
+        <button class="btn primary">生成本周复盘</button>
+      </div>
+    </div>
+
+    <div class="notice mt">
+      <div>📥</div>
+      <div>首期指标通过 CSV 手工导入（公众号/知乎/小红书/抖音后台导出 + 产品事件表），按 UTM 来源码自动关联到内容。数据更新于 2026-09-17 08:00。</div>
+    </div>
+
+    <!-- 四层漏斗 -->
+    <div class="grid mt-lg" style="grid-template-columns:repeat(4,1fr);">
+      <div class="card card-pad">
+        <div class="between"><span class="badge blue plain">① 内容层</span><span class="tiny soft">近 30 天</span></div>
+        <div class="mt" style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+          <div class="between"><span class="muted">曝光</span><strong>128,401</strong></div>
+          <div class="between"><span class="muted">有效阅读 / 完播</span><strong>18,392</strong></div>
+          <div class="between"><span class="muted">收藏</span><strong>2,140</strong></div>
+          <div class="between"><span class="muted">评论</span><strong>486</strong></div>
+          <div class="between"><span class="muted">分享</span><strong>913</strong></div>
+        </div>
+      </div>
+      <div class="card card-pad">
+        <div class="between"><span class="badge blue plain">② 访问层</span><span class="tiny soft">按 UTM 归因</span></div>
+        <div class="mt" style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+          <div class="between"><span class="muted">主页访问</span><strong>4,105</strong></div>
+          <div class="between"><span class="muted">产品页访问</span><strong>3,562</strong></div>
+          <div class="between"><span class="muted">下载页到达</span><strong>1,890</strong></div>
+          <div class="between"><span class="muted">阅读→产品页转化</span><strong style="color:var(--primary)">19.4%</strong></div>
+        </div>
+      </div>
+      <div class="card card-pad" style="border-color:var(--primary);">
+        <div class="between"><span class="badge teal plain">③ 产品层</span><span class="tiny soft">最关键</span></div>
+        <div class="mt" style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+          <div class="between"><span class="muted">下载</span><strong>1,271</strong></div>
+          <div class="between"><span class="muted">完成安装</span><strong>1,018</strong></div>
+          <div class="between"><span class="muted">首次成功分析</span><strong>592</strong></div>
+          <div class="between"><span class="muted">7 日重复使用</span><strong>287</strong></div>
+          <div class="between"><span class="muted">首次分析率</span><strong style="color:var(--primary)">58.2%</strong></div>
+        </div>
+      </div>
+      <div class="card card-pad">
+        <div class="between"><span class="badge violet plain">④ 商业层</span><span class="tiny soft">C2B</span></div>
+        <div class="mt" style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+          <div class="between"><span class="muted">团队协作信号</span><strong>11</strong></div>
+          <div class="between"><span class="muted">企业需求访谈</span><strong>4</strong></div>
+          <div class="between"><span class="muted">试点线索</span><strong>2</strong></div>
+          <div class="between"><span class="muted">主动分享分析成果</span><strong>63</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 单篇效果 -->
+    <div class="card mt-lg">
+      <div class="card-pad between" style="border-bottom:1px solid var(--border);">
+        <div>
+          <div class="section-title">单篇内容效果</div>
+          <div class="section-sub">按「激活贡献」排序——阅读量高不等于有价值</div>
+        </div>
+        <span class="tiny soft">窗口：发布后 7 天</span>
+      </div>
+      <table class="data">
+        <thead><tr><th>内容</th><th>平台</th><th>阅读/播放</th><th>收藏</th><th>产品页访问</th><th>下载</th><th>首次分析</th><th>7日留存</th><th>实验结论</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="strong">CNT-2026-0007 数据不出本机</div></td>
+            <td><span class="plat zhihu"><i></i>知乎</span></td>
+            <td>21,304</td><td>1,860</td><td>1,204</td><td>388</td><td><strong>214</strong></td><td>102</td>
+            <td><span class="badge green">假设成立</span></td>
+          </tr>
+          <tr>
+            <td><div class="strong">CNT-2026-0010 隐私实战(一)</div></td>
+            <td><span class="plat douyin"><i></i>抖音</span></td>
+            <td>54,200</td><td>720</td><td>691</td><td>243</td><td><strong>118</strong></td><td>51</td>
+            <td><span class="badge green">录屏类 2.3×</span></td>
+          </tr>
+          <tr>
+            <td><div class="strong">CNT-2026-0009 Excel 复盘卡片</div></td>
+            <td><span class="plat xhs"><i></i>小红书</span></td>
+            <td>12,890</td><td>2,310</td><td>812</td><td>301</td><td><strong>147</strong></td><td>88</td>
+            <td><span class="badge green">收藏→激活强</span></td>
+          </tr>
+          <tr>
+            <td><div class="strong">CNT-2026-0011 隐私实战(二)</div></td>
+            <td><span class="plat wechat"><i></i>公众号</span></td>
+            <td>6,420</td><td>410</td><td>388</td><td>96</td><td><strong>44</strong></td><td>19</td>
+            <td><span class="badge amber">观察中</span></td>
+          </tr>
+          <tr>
+            <td><div class="strong">CNT-2026-0006 行业趋势漫谈</div></td>
+            <td><span class="plat wechat"><i></i>公众号</span></td>
+            <td>11,205</td><td>180</td><td>102</td><td>12</td><td><strong>3</strong></td><td>1</td>
+            <td><span class="badge red">假设被否</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="card-pad" style="border-top:1px solid var(--border);">
+        <div class="notice" style="font-size:12.5px;">
+          <div>📉</div>
+          <div>CNT-2026-0006 阅读 1.1 万但只带来 3 个激活——「宏观趋势文章驱动下载」假设已被否决，详见<a href="library.html" style="color:var(--primary); text-decoration:underline;">假设库</a>。实战类内容激活效率是其 40 倍。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 实验对比 -->
+    <div class="card mt-lg">
+      <div class="card-pad between" style="border-bottom:1px solid var(--border);">
+        <div>
+          <div class="section-title">进行中的实验</div>
+          <div class="section-sub">同一内容的不同钩子 / CTA / 形式对比</div>
+        </div>
+      </div>
+      <div class="card-pad">
+        <div class="between small">
+          <span><strong>EXP-2026-008</strong> · CNT-2026-0014 开头钩子 A/B</span>
+          <span class="badge amber">观察期 · 还需 2 天</span>
+        </div>
+        <div class="grid mt" style="grid-template-columns:1fr 1fr;">
+          <div style="border:1px solid var(--border); border-radius:8px; padding:12px;">
+            <div class="small strong">版本 A：「市场红利消失」开头</div>
+            <div class="mt small muted">完播/读完率 — · 产品页点击 — · 下载 —</div>
+            <div class="meter mt"><i style="width:50%;"></i></div>
+            <div class="tiny soft mt">数据将在发布后 24h / 72h / 7d 三个窗口采集</div>
+          </div>
+          <div style="border:1px solid var(--border); border-radius:8px; padding:12px;">
+            <div class="small strong">版本 B：「执行越快，错误放大越快」开头</div>
+            <div class="mt small muted">完播/读完率 — · 产品页点击 — · 下载 —</div>
+            <div class="meter mt"><i style="width:50%;"></i></div>
+            <div class="tiny soft mt">你在批注中建议向 B 倾斜，已记录为实验偏好</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="foot-note">发布不是终点，产品激活与企业信号才是终点 · 复盘结论经你确认后才写入假设库与策略库</p>
+  </main>
+</div>
+</body>
+</html>

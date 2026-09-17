@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>四平台适配 · JuanerAI Prism</title>
+<link rel="stylesheet" href="assets/prism.css">
+<style>
+  .tab-pane { display: none; }
+  .tab-pane.show { display: block; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4.5 L18.5 18.5 H1.5 Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.08)"/>
+          <line x1="14" y1="12.5" x2="22.5" y2="9.5" stroke="#e0913c" stroke-width="1.3"/>
+          <line x1="14.8" y1="14.5" x2="23" y2="14.5" stroke="#4fae62" stroke-width="1.3"/>
+          <line x1="14" y1="16.3" x2="22.5" y2="19.3" stroke="#7b5ee3" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div><strong>Prism · 棱镜</strong><span>JuanerAI 内容运营工作台</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">工作台</div>
+      <a href="index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>战略驾驶舱</a>
+      <a href="topics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>选题雷达<span class="count">6</span></a>
+      <a href="studio.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 L20 4"/><path d="M14 4 h6 v6"/></svg>内容工作室</a>
+      <a href="channels.html" class="active"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg>四平台适配</a>
+      <a href="review.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 l7 3 v6 c0 4.5 -3 7.5 -7 9 c-4 -1.5 -7 -4.5 -7 -9 v-6 Z"/><path d="M9 12 l2 2 l4 -4"/></svg>审查中心<span class="count">3</span></a>
+      <a href="calendar.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>日历与发布</a>
+      <div class="nav-group">增长与学习</div>
+      <a href="analytics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 V10"/><path d="M10 20 V4"/><path d="M16 20 v-7"/><path d="M22 20 H2"/></svg>增长分析</a>
+      <a href="library.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4 h11 a3 3 0 0 1 3 3 v13 H8 a3 3 0 0 1 -3 -3 Z"/><path d="M5 17 a3 3 0 0 1 3 -3 h11"/></svg>假设与策略库</a>
+      <a href="community.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12 a8 8 0 1 1 -3.2 -6.4 L21 5 l-1 3.4 A7.9 7.9 0 0 1 21 12 Z"/></svg>评论与线索<span class="count">5</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">总</div>
+      <div><div class="small strong">人类总编</div><small>发布前必须经你批准</small></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>四平台适配</h1>
+        <p class="desc">同一条 Content IR 派生的四个平台原生版本——核心主张完全一致，但每个平台都按自己的方式表达，不是同文搬运。你可以逐个平台检查、微调。</p>
+      </div>
+      <div class="actions">
+        <button class="btn">↻ 重新适配某平台</button>
+        <button class="btn primary">全部送裁判检查</button>
+      </div>
+    </div>
+
+    <div class="card card-pad mt between">
+      <div class="row">
+        <span class="tiny soft">当前内容</span>
+        <strong>CNT-2026-0014</strong>
+        <span>《从执行红利到决策红利》</span>
+      </div>
+      <div class="row small muted">
+        <span>主张一致性：</span><span class="badge green">4/4 版本一致</span>
+      </div>
+    </div>
+
+    <div class="card mt">
+      <div class="tabs" id="tabs" style="padding:0 8px;">
+        <a href="#" class="active" data-pane="wechat"><span class="plat wechat"><i></i>公众号</span><span class="badge green plain">✓ 通过</span></a>
+        <a href="#" data-pane="zhihu"><span class="plat zhihu"><i></i>知乎</span><span class="badge green plain">✓ 通过</span></a>
+        <a href="#" data-pane="xhs"><span class="plat xhs"><i></i>小红书</span><span class="badge green plain">✓ 通过</span></a>
+        <a href="#" data-pane="douyin"><span class="plat douyin"><i></i>抖音</span><span class="badge amber plain">素材中</span></a>
+      </div>
+
+      <!-- 公众号 -->
+      <div class="tab-pane show" id="pane-wechat">
+        <div class="grid card-pad" style="grid-template-columns: minmax(0,1.6fr) minmax(0,1fr);">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">标题（深度教育与信任）</div>
+              <div class="prose-box strong">从执行红利到决策红利：为什么企业需要新的经营能力</div>
+            </div>
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">正文结构预览（约 2,800 字）</div>
+              <div class="prose-box muted">一、那个「执行就能赢」的时代结束了
+二、存量竞争，拼的是决策质量
+三、决策质量 × 执行能力 × 反馈速度
+四、一个零售复盘的真实案例
+五、这套方法的边界在哪里
+六、写在最后：决策是一种可以练习的能力</div>
+            </div>
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">行动召唤 CTA</div>
+              <div class="prose-box small">点击「阅读原文」下载 Xanthil Desktop，用你的数据做第一次真实分析</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="cover-ph" style="height:150px;">封面图占位<br>900 × 383 · 主视觉：棱镜分光</div>
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">来源追踪</div>
+              <div class="tiny mt" style="word-break:break-all; font-family:ui-monospace,monospace;">utm_source=wechat&utm_medium=article&utm_campaign=cam2026_003&utm_content=cnt0014_a</div>
+            </div>
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">格式检查（Channel Quality Judge）</div>
+              <div class="tiny mt" style="line-height:1.9;">✓ 标题 26 字，未超限<br>✓ 封面比例合规<br>✓ 摘要与正文一致<br>✓ 已添加 AI 辅助创作声明</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 知乎 -->
+      <div class="tab-pane" id="pane-zhihu">
+        <div class="grid card-pad" style="grid-template-columns: minmax(0,1.6fr) minmax(0,1fr);">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">回答问题（问题导向、弱营销）</div>
+              <div class="prose-box strong">进入存量竞争后，企业的决策能力会比执行力更重要吗？</div>
+            </div>
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">回答结构预览（约 1,900 字，先答后证）</div>
+              <div class="prose-box muted">结论先行：会，且权重在快速上升。
+然后用三个行业数据 + 一个匿名复盘案例论证；
+最后一段才自然提及 JuanerAI 的做法，不构成推销。</div>
+            </div>
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">行动召唤 CTA</div>
+              <div class="prose-box small">评论区置顶：文中提到的复盘方法，可用 Xanthil Desktop 免费验证</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="cover-ph" style="height:110px;">题图占位（可选）</div>
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">来源追踪</div>
+              <div class="tiny mt" style="word-break:break-all; font-family:ui-monospace,monospace;">utm_source=zhihu&utm_medium=answer&utm_campaign=cam2026_003&utm_content=cnt0014_a</div>
+            </div>
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">格式检查</div>
+              <div class="tiny mt" style="line-height:1.9;">✓ 结论前置，符合知乎阅读习惯<br>✓ 营销浓度低（品牌仅结尾出现 1 次）<br>✓ 数据来源均已标注</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小红书 -->
+      <div class="tab-pane" id="pane-xhs">
+        <div class="grid card-pad" style="grid-template-columns: minmax(0,1.6fr) minmax(0,1fr);">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">标题（搜索型 + 收藏价值）</div>
+              <div class="prose-box strong">增量时代拼执行，存量时代先拼判断｜附复盘模板</div>
+            </div>
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">图文卡片（共 10 页）</div>
+              <div class="grid" style="grid-template-columns:repeat(5,1fr);">
+                <div class="cover-ph" style="aspect-ratio:3/4;">封面<br>大字标题</div>
+                <div class="cover-ph" style="aspect-ratio:3/4;">P2<br>时代对比</div>
+                <div class="cover-ph" style="aspect-ratio:3/4;">P3<br>公式图解</div>
+                <div class="cover-ph" style="aspect-ratio:3/4;">P4-9<br>案例拆解</div>
+                <div class="cover-ph" style="aspect-ratio:3/4;">P10<br>模板领取</div>
+              </div>
+            </div>
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">正文与标签</div>
+              <div class="prose-box small">判断比勤奋更值钱的证据都在图里👆 评论区扣「模板」发你复盘表格 #数据分析 #经营分析 #复盘模板 #职场干货</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">来源追踪</div>
+              <div class="tiny mt" style="word-break:break-all; font-family:ui-monospace,monospace;">utm_source=xhs&utm_medium=note&utm_campaign=cam2026_003&utm_content=cnt0014_a<br><br>小红书评论区口令：「模板」→ 人工回复专属链接</div>
+            </div>
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">格式检查</div>
+              <div class="tiny mt" style="line-height:1.9;">✓ 卡片比例 3:4，字数合规<br>✓ 标题含搜索关键词<br>✓ 标签 4 个，无违规词<br>✓ 图片含 AI 生成标识元数据</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 抖音 -->
+      <div class="tab-pane" id="pane-douyin">
+        <div class="grid card-pad" style="grid-template-columns: minmax(0,1.6fr) minmax(0,1fr);">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">60 秒口播脚本（真实操作证明）</div>
+              <div class="prose-box">「过去企业方向做得没那么准，只要市场增长快、执行足够强，仍然能赚钱。
+但存量时代不一样：选错商品、投错用户、开错门店，执行越快，损失越快。
+所以未来不是执行力不重要，而是经营结果越来越等于：决策质量 × 执行能力 × 反馈速度。
+这也是我们为什么在做 JuanerAI。」</div>
+            </div>
+            <div>
+              <div class="tiny soft" style="margin-bottom:4px;">分镜清单（4 镜头 · 录屏待制作）</div>
+              <table class="data">
+                <thead><tr><th>镜头</th><th>画面</th><th>时长</th><th>状态</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>真人口播开场钩子</td><td>8s</td><td><span class="badge green">已录制</span></td></tr>
+                  <tr><td>2</td><td>屏幕录制：销售下降复盘实操</td><td>30s</td><td><span class="badge amber">待录屏</span></td></tr>
+                  <tr><td>3</td><td>公式图解动画</td><td>12s</td><td><span class="badge amber">制作中</span></td></tr>
+                  <tr><td>4</td><td>结尾 CTA + 评论区置顶</td><td>10s</td><td><span class="badge">待制作</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="cover-ph" style="height:150px;">竖版封面占位<br>1080 × 1920 · 9:16</div>
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">来源追踪</div>
+              <div class="tiny mt" style="word-break:break-all; font-family:ui-monospace,monospace;">utm_source=douyin&utm_medium=video&utm_campaign=cam2026_003&utm_content=cnt0014_a<br><br>评论区置顶链接 + 主页落地页二维码</div>
+            </div>
+            <div class="card card-pad" style="background:var(--surface-2);">
+              <div class="tiny strong muted">格式检查</div>
+              <div class="tiny mt" style="line-height:1.9;">✓ 脚本口播时长 58s<br>✓ 字幕文件已生成<br>⚠ 录屏素材未完成，暂不能送审<br>✓ 视频将附加 AI 合成标识</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="foot-note">修改主内容后，这里所有平台版本会标记「需重新适配」· 每个版本独立通过裁判检查后才能进入发布队列</p>
+
+    <script>
+      document.getElementById('tabs').addEventListener('click', function (e) {
+        var a = e.target.closest('a'); if (!a) return;
+        e.preventDefault();
+        document.querySelectorAll('#tabs a').forEach(function (t) { t.classList.remove('active'); });
+        document.querySelectorAll('.tab-pane').forEach(function (p) { p.classList.remove('show'); });
+        a.classList.add('active');
+        document.getElementById('pane-' + a.dataset.pane).classList.add('show');
+      });
+    </script>
+  </main>
+</div>
+</body>
+</html>

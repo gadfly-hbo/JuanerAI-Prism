@@ -1,0 +1,63 @@
+# Agent 契约（Agent Contracts）
+# 每个 Agent 有职责边界；Controller 只调度不写稿。
+
+controller:
+  id: content-controller
+  role: 总控：计划、调度、状态机、收集裁判结果、提交人工批准
+  forbidden: [直接撰写正文, 跳过裁判, 跳过人工批准]
+
+agents:
+  strategy:
+    id: A1-strategy
+    stage: TRIAGED
+    input: [osm, signals, libraries]
+    output: topic_candidates[]
+    tools: [knowledge.read, metrics.read]
+    forbidden: [决定发布]
+  research:
+    id: A2-research
+    stage: RESEARCHED
+    input: [topic, product_truth, evidence_registry]
+    output: evidence_pack
+    tools: [knowledge.read, search]
+    forbidden: [写正文]
+  canonical:
+    id: A3-canonical
+    stage: CANONICAL_DRAFTED
+    input: [content_ir, evidence_pack]
+    output: canonical_content
+    tools: [llm]
+    forbidden: [编造事实, 删除反方观点]
+  channel_studio:
+    id: A4-channel
+    stage: CHANNEL_ADAPTED
+    input: [canonical_content, channel_templates]
+    output: channel_variants[]
+    tools: [llm]
+    forbidden: [改变核心主张, 同文搬运]
+  creative:
+    id: A5-creative
+    stage: CREATIVE_READY
+    input: [channel_variants]
+    output: asset_tasks[]
+    tools: [llm, image, video]
+    forbidden: [自动成片发布]
+  publishing:
+    id: A6-publishing
+    stage: SCHEDULED
+    input: [approved_content]
+    output: publish_package
+    tools: [calendar, utm]
+    forbidden: [无人审核正式发布, 自动私信, 模拟登录]
+  growth:
+    id: A7-growth
+    stage: LEARNED
+    input: [metrics, judge_results, comments]
+    output: learning_record, library_proposals[]
+    tools: [metrics.read, metrics.write]
+    forbidden: [直接写入双库（必须人类确认）]
+
+judges:
+  - evidence
+  - brand_compliance
+  - channel_quality

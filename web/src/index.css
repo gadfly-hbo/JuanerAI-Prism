@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #17202a;
+}
+
+body { margin: 0; background: #f5f7fa; }
+
+/* 棱镜光谱：只用于状态机进度条（DESIGN.md 品牌位） */
+.spectrum-bar {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #d65353 0%, #e0913c 20%, #dcc23e 40%, #4fae62 60%, #3b7fd4 80%, #7b5ee3 100%);
+}
+
+.prose-box {
+  background: #f9fafb;
+  border: 1px solid #dce3ea;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.num { font-variant-numeric: tabular-nums; }

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>选题雷达 · JuanerAI Prism</title>
+<link rel="stylesheet" href="assets/prism.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4.5 L18.5 18.5 H1.5 Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.08)"/>
+          <line x1="14" y1="12.5" x2="22.5" y2="9.5" stroke="#e0913c" stroke-width="1.3"/>
+          <line x1="14.8" y1="14.5" x2="23" y2="14.5" stroke="#4fae62" stroke-width="1.3"/>
+          <line x1="14" y1="16.3" x2="22.5" y2="19.3" stroke="#7b5ee3" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div><strong>Prism · 棱镜</strong><span>JuanerAI 内容运营工作台</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">工作台</div>
+      <a href="index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>战略驾驶舱</a>
+      <a href="topics.html" class="active"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>选题雷达<span class="count">6</span></a>
+      <a href="studio.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 L20 4"/><path d="M14 4 h6 v6"/></svg>内容工作室</a>
+      <a href="channels.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg>四平台适配</a>
+      <a href="review.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 l7 3 v6 c0 4.5 -3 7.5 -7 9 c-4 -1.5 -7 -4.5 -7 -9 v-6 Z"/><path d="M9 12 l2 2 l4 -4"/></svg>审查中心<span class="count">3</span></a>
+      <a href="calendar.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>日历与发布</a>
+      <div class="nav-group">增长与学习</div>
+      <a href="analytics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 V10"/><path d="M10 20 V4"/><path d="M16 20 v-7"/><path d="M22 20 H2"/></svg>增长分析</a>
+      <a href="library.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4 h11 a3 3 0 0 1 3 3 v13 H8 a3 3 0 0 1 -3 -3 Z"/><path d="M5 17 a3 3 0 0 1 3 -3 h11"/></svg>假设与策略库</a>
+      <a href="community.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12 a8 8 0 1 1 -3.2 -6.4 L21 5 l-1 3.4 A7.9 7.9 0 0 1 21 12 Z"/></svg>评论与线索<span class="count">5</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">总</div>
+      <div><div class="small strong">人类总编</div><small>发布前必须经你批准</small></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>选题雷达</h1>
+        <p class="desc">Agent 每天从用户评论、产品反馈、搜索问题、版本更新和历史表现中汇总「值得做的选题」，并说明为什么值得做。你只做一件事：采纳，或搁置。</p>
+      </div>
+      <div class="actions">
+        <button class="btn">信号来源设置</button>
+        <button class="btn primary">＋ 手动添加选题</button>
+      </div>
+    </div>
+
+    <!-- 信号汇总条 -->
+    <div class="grid mt" style="grid-template-columns:repeat(6,1fr);">
+      <div class="card stat"><div class="label">用户评论</div><div class="value" style="font-size:19px;">23</div></div>
+      <div class="card stat"><div class="label">产品反馈</div><div class="value" style="font-size:19px;">11</div></div>
+      <div class="card stat"><div class="label">搜索问题</div><div class="value" style="font-size:19px;">47</div></div>
+      <div class="card stat"><div class="label">版本更新</div><div class="value" style="font-size:19px;">2</div></div>
+      <div class="card stat"><div class="label">行业事件</div><div class="value" style="font-size:19px;">3</div></div>
+      <div class="card stat"><div class="label">历史内容表现</div><div class="value" style="font-size:19px;">—</div></div>
+    </div>
+
+    <!-- 筛选条 -->
+    <div class="row mt wrap">
+      <span class="small muted">筛选：</span>
+      <button class="btn sm primary">全部候选（6）</button>
+      <button class="btn sm">痛点切入（2）</button>
+      <button class="btn sm">实战证明（2）</button>
+      <button class="btn sm">方法建信任（1）</button>
+      <button class="btn sm">公开构建（1）</button>
+      <span style="flex:1"></span>
+      <span class="tiny soft">按「预期激活贡献」排序 ▾</span>
+    </div>
+
+    <!-- 选题候选卡片 -->
+    <div class="grid mt" style="grid-template-columns:1fr 1fr;">
+
+      <div class="item">
+        <div class="between">
+          <span class="badge amber">待决策</span>
+          <span class="tiny soft">来自：搜索问题 ×14 · 评论 ×6</span>
+        </div>
+        <h3 class="mt">企业数据不敢发给云端大模型，怎么做 AI 数据分析？</h3>
+        <dl class="kv mt">
+          <dt>服务策略</dt><dd><span class="tag">S1 痛点切入</span> <span class="tag">O2 激活</span></dd>
+          <dt>目标人群</dt><dd>数据分析师（已用 AI、担心数据安全）</dd>
+          <dt>核心问题</dt><dd>企业数据不能直接发送给云端大模型</dd>
+          <dt>建议观点</dt><dd>LLM 负责理解与生成代码，原始数据留在本地执行</dd>
+          <dt>建议格式</dt><dd>知乎长回答 + 小红书收藏卡片</dd>
+          <dt>预期指标</dt><dd>产品页访问 800+ · 下载 120+ · 激活 40+</dd>
+          <dt>成本 / 风险</dt><dd>成本 低（已有成熟证据包） · 风险 低</dd>
+        </dl>
+        <div class="notice green mt" style="font-size:12.5px;">
+          <div>🔎</div>
+          <div><strong>为什么值得做：</strong>「数据分析 不上传 隐私」搜索量 30 天上升 62%；既有内容 CNT-2026-0007 同主题带来过 19 个激活，证据链完整可直接复用。</div>
+        </div>
+        <div class="row mt">
+          <button class="btn primary sm">✓ 采纳，进入研究</button>
+          <button class="btn sm">调整候选</button>
+          <button class="btn sm ghost">搁置</button>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="between">
+          <span class="badge amber">待决策</span>
+          <span class="tiny soft">来自：产品反馈 ×4 · 行业事件 ×1</span>
+        </div>
+        <h3 class="mt">「分析报告发给老板后没人行动」——决策的最后一公里</h3>
+        <dl class="kv mt">
+          <dt>服务策略</dt><dd><span class="tag">S1 痛点切入</span> <span class="tag">O1 认知</span></dd>
+          <dt>目标人群</dt><dd>业务负责人、运营经理</dd>
+          <dt>核心问题</dt><dd>报告只给结论，不给可比较的行动候选</dd>
+          <dt>建议观点</dt><dd>好分析的产出不是结论，而是带证据的决策候选</dd>
+          <dt>建议格式</dt><dd>公众号深度文章 + 抖音 60 秒口播</dd>
+          <dt>预期指标</dt><dd>有效阅读 5,000+ · 产品页访问 400+</dd>
+          <dt>成本 / 风险</dt><dd>成本 中（需补 2 个客户匿名案例） · 风险 中</dd>
+        </dl>
+        <div class="notice mt" style="font-size:12.5px;">
+          <div>🔎</div>
+          <div><strong>为什么值得做：</strong>评论中「报告没人看/没人行动」出现频次本周第 2；但缺少已授权案例，Research Agent 预估需 1-2 天补齐证据。</div>
+        </div>
+        <div class="row mt">
+          <button class="btn primary sm">✓ 采纳，进入研究</button>
+          <button class="btn sm">调整候选</button>
+          <button class="btn sm ghost">搁置</button>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="between">
+          <span class="badge amber">待决策</span>
+          <span class="tiny soft">来自：版本更新 v0.9.2</span>
+        </div>
+        <h3 class="mt">新版本支持 Excel 直连分析：3 分钟做完月度销售复盘</h3>
+        <dl class="kv mt">
+          <dt>服务策略</dt><dd><span class="tag">S2 实战证明</span> <span class="tag">O2 激活</span></dd>
+          <dt>目标人群</dt><dd>电商运营、商品分析</dd>
+          <dt>核心问题</dt><dd>每月复盘要手工拼 5 张表，耗时 2 天</dd>
+          <dt>建议观点</dt><dd>用真实操作录屏证明 3 分钟完成同一份复盘</dd>
+          <dt>建议格式</dt><dd>抖音录屏实操 + 小红书步骤卡片</dd>
+          <dt>预期指标</dt><dd>完播率 35%+ · 下载 200+ · 激活 60+</dd>
+          <dt>成本 / 风险</dt><dd>成本 中（需录屏素材） · 风险 低</dd>
+        </dl>
+        <div class="notice green mt" style="font-size:12.5px;">
+          <div>🔎</div>
+          <div><strong>为什么值得做：</strong>策略库已验证「录屏实操类」抖音内容激活转化是平均值 2.3 倍；v0.9.2 的 Excel 直连是最受期待功能（反馈票选第 1）。</div>
+        </div>
+        <div class="row mt">
+          <button class="btn primary sm">✓ 采纳，进入研究</button>
+          <button class="btn sm">调整候选</button>
+          <button class="btn sm ghost">搁置</button>
+        </div>
+      </div>
+
+      <div class="item" style="opacity:.75;">
+        <div class="between">
+          <span class="badge">已搁置</span>
+          <span class="tiny soft">来自：行业事件</span>
+        </div>
+        <h3 class="mt">某竞品融资 2 亿，AI BI 赛道再起波澜</h3>
+        <dl class="kv mt">
+          <dt>服务策略</dt><dd><span class="tag">S3 方法建信任</span></dd>
+          <dt>搁置原因</dt><dd>涉及竞品评价，属高风险内容；且与三个目标均无强关联，容易写成水文。</dd>
+        </dl>
+        <div class="row mt">
+          <button class="btn sm ghost">恢复为候选</button>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="foot-note">选题由 Strategy & Audience Agent 生成候选，人类总编保留最终决定权 · 已采纳的选题自动进入内容工作室</p>
+  </main>
+</div>
+</body>
+</html>

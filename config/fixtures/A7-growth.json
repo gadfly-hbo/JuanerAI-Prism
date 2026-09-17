@@ -1,0 +1,10 @@
+{
+  "weekly_summary": "本周激活 47（目标 60，78%）。「本地隐私实战」系列贡献 29 个激活，继续验证隐私叙事假设。瓶颈在「阅读→产品页访问」。",
+  "hypothesis_updates": [
+    { "hypothesis": "录屏实操类视频激活转化显著高于口播观点类", "verdict": "confirmed", "evidence": "连续 2 条内容、3 个独立证据窗口，激活效率稳定在均值 2 倍以上", "action": "promote_to_strategy" }
+  ],
+  "new_hypotheses": [
+    { "statement": "CTA 置于正文第 2 屏比置于文末提升产品页点击", "audience": "全部", "platform": "公众号", "metric": "产品页点击率", "suggested_experiment": "EXP 正式验证" }
+  ],
+  "roadmap_signals": ["数据库直连需求本周出现 7 次，建议进入产品路线图讨论"]
+}

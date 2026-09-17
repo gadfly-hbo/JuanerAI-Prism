@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日历与发布 · JuanerAI Prism</title>
+<link rel="stylesheet" href="assets/prism.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4.5 L18.5 18.5 H1.5 Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.08)"/>
+          <line x1="14" y1="12.5" x2="22.5" y2="9.5" stroke="#e0913c" stroke-width="1.3"/>
+          <line x1="14.8" y1="14.5" x2="23" y2="14.5" stroke="#4fae62" stroke-width="1.3"/>
+          <line x1="14" y1="16.3" x2="22.5" y2="19.3" stroke="#7b5ee3" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div><strong>Prism · 棱镜</strong><span>JuanerAI 内容运营工作台</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">工作台</div>
+      <a href="index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>战略驾驶舱</a>
+      <a href="topics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>选题雷达<span class="count">6</span></a>
+      <a href="studio.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 L20 4"/><path d="M14 4 h6 v6"/></svg>内容工作室</a>
+      <a href="channels.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg>四平台适配</a>
+      <a href="review.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 l7 3 v6 c0 4.5 -3 7.5 -7 9 c-4 -1.5 -7 -4.5 -7 -9 v-6 Z"/><path d="M9 12 l2 2 l4 -4"/></svg>审查中心<span class="count">3</span></a>
+      <a href="calendar.html" class="active"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>日历与发布</a>
+      <div class="nav-group">增长与学习</div>
+      <a href="analytics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 V10"/><path d="M10 20 V4"/><path d="M16 20 v-7"/><path d="M22 20 H2"/></svg>增长分析</a>
+      <a href="library.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4 h11 a3 3 0 0 1 3 3 v13 H8 a3 3 0 0 1 -3 -3 Z"/><path d="M5 17 a3 3 0 0 1 3 -3 h11"/></svg>假设与策略库</a>
+      <a href="community.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12 a8 8 0 1 1 -3.2 -6.4 L21 5 l-1 3.4 A7.9 7.9 0 0 1 21 12 Z"/></svg>评论与线索<span class="count">5</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">总</div>
+      <div><div class="small strong">人类总编</div><small>发布前必须经你批准</small></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>日历与发布</h1>
+        <p class="desc">统一的发布节奏视图：哪天发什么、发到哪个平台、发布包准备好了没有。系统只做准备和提醒，最终点击发布的永远是你。</p>
+      </div>
+      <div class="actions">
+        <button class="btn">◀ 8月</button>
+        <button class="btn">2026 年 9 月</button>
+        <button class="btn">10月 ▶</button>
+      </div>
+    </div>
+
+    <div class="grid mt" style="grid-template-columns: minmax(0,1.8fr) minmax(0,1fr);">
+
+      <!-- 月历 -->
+      <div class="card card-pad">
+        <div class="between">
+          <div class="section-title">2026 年 9 月</div>
+          <div class="row tiny muted">
+            <span class="plat wechat"><i></i>公众号</span>
+            <span class="plat zhihu"><i></i>知乎</span>
+            <span class="plat xhs"><i></i>小红书</span>
+            <span class="plat douyin"><i></i>抖音</span>
+          </div>
+        </div>
+        <div class="calendar mt">
+          <div class="cal-head">一</div><div class="cal-head">二</div><div class="cal-head">三</div><div class="cal-head">四</div><div class="cal-head">五</div><div class="cal-head">六</div><div class="cal-head">日</div>
+
+          <div class="cal-cell dim"><div class="d">8/31</div></div>
+          <div class="cal-cell"><div class="d">1</div></div>
+          <div class="cal-cell"><div class="d">2</div></div>
+          <div class="cal-cell"><div class="d">3</div></div>
+          <div class="cal-cell"><div class="d">4</div></div>
+          <div class="cal-cell"><div class="d">5</div></div>
+          <div class="cal-cell"><div class="d">6</div></div>
+
+          <div class="cal-cell"><div class="d">7</div><div class="cal-item wechat">隐私实战(一) 已发</div></div>
+          <div class="cal-cell"><div class="d">8</div></div>
+          <div class="cal-cell"><div class="d">9</div><div class="cal-item xhs">Excel复盘卡片 已发</div></div>
+          <div class="cal-cell"><div class="d">10</div></div>
+          <div class="cal-cell"><div class="d">11</div><div class="cal-item zhihu">存量竞争问答 已发</div></div>
+          <div class="cal-cell"><div class="d">12</div></div>
+          <div class="cal-cell"><div class="d">13</div></div>
+
+          <div class="cal-cell"><div class="d">14</div><div class="cal-item douyin">隐私实战(一) 已发</div></div>
+          <div class="cal-cell"><div class="d">15</div></div>
+          <div class="cal-cell"><div class="d">16</div><div class="cal-item wechat">隐私实战(二) 已发</div></div>
+          <div class="cal-cell today"><div class="d">17 · 今天</div></div>
+          <div class="cal-cell"><div class="d">18</div><div class="cal-item wechat">决策红利·深度文</div><div class="cal-item zhihu">决策红利·回答</div></div>
+          <div class="cal-cell"><div class="d">19</div><div class="cal-item xhs">决策红利·卡片</div></div>
+          <div class="cal-cell"><div class="d">20</div></div>
+
+          <div class="cal-cell"><div class="d">21</div><div class="cal-item douyin">决策红利·60s</div></div>
+          <div class="cal-cell"><div class="d">22</div></div>
+          <div class="cal-cell"><div class="d">23</div><div class="cal-item wechat">会员复购拆解</div></div>
+          <div class="cal-cell"><div class="d">24</div></div>
+          <div class="cal-cell"><div class="d">25</div><div class="cal-item xhs">销售复盘模板</div></div>
+          <div class="cal-cell"><div class="d">26</div></div>
+          <div class="cal-cell"><div class="d">27</div></div>
+
+          <div class="cal-cell"><div class="d">28</div></div>
+          <div class="cal-cell"><div class="d">29</div><div class="cal-item zhihu">决策红利·追问二</div></div>
+          <div class="cal-cell"><div class="d">30</div></div>
+          <div class="cal-cell dim"><div class="d">10/1</div></div>
+          <div class="cal-cell dim"><div class="d">2</div></div>
+          <div class="cal-cell dim"><div class="d">3</div></div>
+          <div class="cal-cell dim"><div class="d">4</div></div>
+        </div>
+        <div class="tiny soft mt">同一主题的四平台版本会错开 1-3 天发布，避免自我抢量 · 平台冲突已自动检查</div>
+      </div>
+
+      <!-- 发布队列 -->
+      <div style="display:flex; flex-direction:column; gap:14px; min-width:0;">
+        <div class="card">
+          <div class="card-pad" style="border-bottom:1px solid var(--border);">
+            <div class="section-title">发布队列</div>
+            <div class="section-sub">按时间顺序 · 发布包 = 标题/正文/封面/标签/CTA/追踪码 全套素材</div>
+          </div>
+          <div class="card-pad" style="display:flex; flex-direction:column; gap:12px;">
+
+            <div class="item" style="padding:13px;">
+              <div class="between">
+                <span class="plat wechat"><i></i><strong class="small">9/18（明天）10:00 · 公众号</strong></span>
+                <span class="badge green">发布包就绪</span>
+              </div>
+              <div class="small mt">《从执行红利到决策红利》深度文章</div>
+              <div class="row mt">
+                <button class="btn sm">⬇ 导出发布包</button>
+                <button class="btn sm ghost">打开公众号后台 →</button>
+              </div>
+            </div>
+
+            <div class="item" style="padding:13px;">
+              <div class="between">
+                <span class="plat zhihu"><i></i><strong class="small">9/18（明天）20:00 · 知乎</strong></span>
+                <span class="badge green">发布包就绪</span>
+              </div>
+              <div class="small mt">回答《决策能力会比执行力更重要吗？》</div>
+              <div class="row mt">
+                <button class="btn sm">⬇ 导出发布包</button>
+                <button class="btn sm ghost">复制回答正文</button>
+              </div>
+            </div>
+
+            <div class="item" style="padding:13px;">
+              <div class="between">
+                <span class="plat xhs"><i></i><strong class="small">9/19（周六）21:00 · 小红书</strong></span>
+                <span class="badge green">发布包就绪</span>
+              </div>
+              <div class="small mt">《增量时代拼执行，存量时代先拼判断》10 页卡片</div>
+              <div class="row mt">
+                <button class="btn sm">⬇ 导出发布包</button>
+                <button class="btn sm ghost">查看素材清单</button>
+              </div>
+            </div>
+
+            <div class="item" style="padding:13px; opacity:.75;">
+              <div class="between">
+                <span class="plat douyin"><i></i><strong class="small">9/21（周一）12:00 · 抖音</strong></span>
+                <span class="badge amber">素材待完成</span>
+              </div>
+              <div class="small mt">60 秒口播 · 镜头 2 录屏未完成</div>
+              <div class="row mt">
+                <button class="btn sm" disabled style="opacity:.5;">⬇ 导出发布包</button>
+                <button class="btn sm ghost">催素材任务</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card card-pad">
+          <div class="section-title">发布边界（安全承诺）</div>
+          <div class="mt" style="display:flex; flex-direction:column; gap:8px; font-size:12.5px;" >
+            <div class="row"><span style="color:var(--green)">✓</span><span class="muted">系统自动：准备素材、生成草稿、提醒你</span></div>
+            <div class="row"><span style="color:var(--green)">✓</span><span class="muted">你手动：最终检查、点击发布</span></div>
+            <div class="row"><span style="color:var(--red)">✕</span><span class="muted">系统绝不：模拟登录、批量操作、无人值守发布</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="foot-note">发布失败不自动重试，会通知你处理 · 每次发布保留操作者与授权记录</p>
+  </main>
+</div>
+</body>
+</html>

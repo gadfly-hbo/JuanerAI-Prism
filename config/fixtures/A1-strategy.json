@@ -1,0 +1,46 @@
+{
+  "candidates": [
+    {
+      "title": "企业数据不敢发给云端大模型，怎么做 AI 数据分析？",
+      "strategy": "S1 痛点切入",
+      "objective": "O2_激活",
+      "persona": "数据分析师（已用 AI、担心数据安全）",
+      "user_problem": "企业数据不能直接发送给云端大模型",
+      "suggested_thesis": "LLM 负责理解与生成代码，原始数据留在本地执行",
+      "formats": ["知乎长回答", "小红书收藏卡片"],
+      "expected_metrics": { "product_page": 800, "download": 120, "activated": 40 },
+      "cost": "低（已有成熟证据包）",
+      "risk": "低",
+      "rationale": "「数据分析 不上传 隐私」搜索量 30 天上升 62%；既有内容 CNT-2026-0007 同主题带来过 19 个激活，证据链可直接复用。",
+      "sources": ["搜索问题 ×14", "评论 ×6"]
+    },
+    {
+      "title": "「分析报告发给老板后没人行动」——决策的最后一公里",
+      "strategy": "S1 痛点切入",
+      "objective": "O1_认知",
+      "persona": "业务负责人、运营经理",
+      "user_problem": "报告只给结论，不给可比较的行动候选",
+      "suggested_thesis": "好分析的产出不是结论，而是带证据的决策候选",
+      "formats": ["公众号深度文章", "抖音 60 秒口播"],
+      "expected_metrics": { "reads": 5000, "product_page": 400 },
+      "cost": "中（需补 2 个客户匿名案例）",
+      "risk": "中",
+      "rationale": "评论中「报告没人看/没人行动」出现频次本周第 2；但缺少已授权案例，预估需 1-2 天补齐证据。",
+      "sources": ["产品反馈 ×4", "行业事件 ×1"]
+    },
+    {
+      "title": "新版本支持 Excel 直连分析：3 分钟做完月度销售复盘",
+      "strategy": "S2 实战证明",
+      "objective": "O2_激活",
+      "persona": "电商运营、商品分析",
+      "user_problem": "每月复盘要手工拼 5 张表，耗时 2 天",
+      "suggested_thesis": "用真实操作录屏证明 3 分钟完成同一份复盘",
+      "formats": ["抖音录屏实操", "小红书步骤卡片"],
+      "expected_metrics": { "completion_rate": 0.35, "download": 200, "activated": 60 },
+      "cost": "中（需录屏素材）",
+      "risk": "低",
+      "rationale": "策略库已验证「录屏实操类」抖音内容激活转化是平均值 2.3 倍；v0.9.2 的 Excel 直连是反馈票选第 1。",
+      "sources": ["版本更新 v0.9.2"]
+    }
+  ]
+}

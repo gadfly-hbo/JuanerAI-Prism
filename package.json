@@ -1,0 +1,22 @@
+{
+  "name": "juanerai-prism",
+  "private": true,
+  "version": "0.1.0",
+  "description": "JuanerAI Prism 棱镜内容工作台 — AI Native 内容决策与增长学习系统",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @prism/server & npm run dev --workspace @prism/web",
+    "dev:server": "npm run dev --workspace @prism/server",
+    "dev:web": "npm run dev --workspace @prism/web",
+    "seed": "npm run seed --workspace @prism/server",
+    "test": "npm test --workspace @prism/server",
+    "build": "npm run build --workspace @prism/web"
+  }
+}

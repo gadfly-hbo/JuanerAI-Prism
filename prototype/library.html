@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>假设与策略库 · JuanerAI Prism</title>
+<link rel="stylesheet" href="assets/prism.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4.5 L18.5 18.5 H1.5 Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.08)"/>
+          <line x1="14" y1="12.5" x2="22.5" y2="9.5" stroke="#e0913c" stroke-width="1.3"/>
+          <line x1="14.8" y1="14.5" x2="23" y2="14.5" stroke="#4fae62" stroke-width="1.3"/>
+          <line x1="14" y1="16.3" x2="22.5" y2="19.3" stroke="#7b5ee3" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div><strong>Prism · 棱镜</strong><span>JuanerAI 内容运营工作台</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">工作台</div>
+      <a href="index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>战略驾驶舱</a>
+      <a href="topics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>选题雷达<span class="count">6</span></a>
+      <a href="studio.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 L20 4"/><path d="M14 4 h6 v6"/></svg>内容工作室</a>
+      <a href="channels.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg>四平台适配</a>
+      <a href="review.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 l7 3 v6 c0 4.5 -3 7.5 -7 9 c-4 -1.5 -7 -4.5 -7 -9 v-6 Z"/><path d="M9 12 l2 2 l4 -4"/></svg>审查中心<span class="count">3</span></a>
+      <a href="calendar.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>日历与发布</a>
+      <div class="nav-group">增长与学习</div>
+      <a href="analytics.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 V10"/><path d="M10 20 V4"/><path d="M16 20 v-7"/><path d="M22 20 H2"/></svg>增长分析</a>
+      <a href="library.html" class="active"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4 h11 a3 3 0 0 1 3 3 v13 H8 a3 3 0 0 1 -3 -3 Z"/><path d="M5 17 a3 3 0 0 1 3 -3 h11"/></svg>假设与策略库</a>
+      <a href="community.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12 a8 8 0 1 1 -3.2 -6.4 L21 5 l-1 3.4 A7.9 7.9 0 0 1 21 12 Z"/></svg>评论与线索<span class="count">5</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">总</div>
+      <div><div class="small strong">人类总编</div><small>发布前必须经你批准</small></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>假设与策略库</h1>
+        <p class="desc">工作台的记忆与经验。假设库记录「我们正在验证什么判断」，策略库记录「已经验证、可以复用的做法」。爆款不是知识，被重复验证的适用条件才是。</p>
+      </div>
+      <div class="actions">
+        <button class="btn">手动添加假设</button>
+      </div>
+    </div>
+
+    <div class="notice mt">
+      <div>🔒</div>
+      <div>Agent 只能<strong>提议</strong>更新两库——每条记录的成立、否决或修改，都必须经你确认后才真正生效。</div>
+    </div>
+
+    <!-- 假设库 -->
+    <div class="between mt-lg">
+      <div>
+        <div class="section-title">内容假设库</div>
+        <div class="section-sub">对受众、问题和传播机制的判断，及其当前证据状态</div>
+      </div>
+      <div class="row small">
+        <span class="badge green">已成立 5</span>
+        <span class="badge red">已否决 2</span>
+        <span class="badge amber">验证中 3</span>
+      </div>
+    </div>
+
+    <div class="card mt">
+      <table class="data">
+        <thead><tr><th>假设</th><th>适用受众 / 平台</th><th>测试内容</th><th>关键指标</th><th>证据</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="max-width:280px;"><div class="small strong">隐私与可验证性比「AI 更快」更能驱动高意向下载</div></td>
+            <td class="small muted">数据分析师<br>知乎 / 公众号</td>
+            <td class="small muted">CNT-2026-0007 等 3 条</td>
+            <td class="small">激活率</td>
+            <td class="small muted">支持 5 · 反对 1</td>
+            <td><span class="badge green">已成立</span></td>
+          </tr>
+          <tr>
+            <td style="max-width:280px;"><div class="small strong">录屏实操类视频激活转化显著高于口播观点类</div></td>
+            <td class="small muted">运营 / 商品<br>抖音</td>
+            <td class="small muted">CNT-2026-0010 等 2 条</td>
+            <td class="small">播放→激活</td>
+            <td class="small muted">支持 3 · 反对 0</td>
+            <td><span class="badge green">已成立</span></td>
+          </tr>
+          <tr>
+            <td style="max-width:280px;"><div class="small strong">小红书用户更愿意收藏「模板型」内容，且收藏会转化为激活</div></td>
+            <td class="small muted">数据分析师<br>小红书</td>
+            <td class="small muted">CNT-2026-0009</td>
+            <td class="small">收藏→激活</td>
+            <td class="small muted">支持 2 · 反对 0</td>
+            <td><span class="badge green">已成立</span></td>
+          </tr>
+          <tr>
+            <td style="max-width:280px;"><div class="small strong">「决策红利」叙事比「AI 提效」叙事更能打动管理者</div></td>
+            <td class="small muted">业务负责人<br>公众号 / 知乎</td>
+            <td class="small muted">CNT-2026-0014（发布中）</td>
+            <td class="small">产品页访问质量</td>
+            <td class="small muted">支持 0 · 反对 0</td>
+            <td><span class="badge amber">验证中</span></td>
+          </tr>
+          <tr>
+            <td style="max-width:280px;"><div class="small strong">创始人叙事能提高公众号关注与信任</div></td>
+            <td class="small muted">全部<br>公众号</td>
+            <td class="small muted">计划 9 月底测试</td>
+            <td class="small">关注转化率</td>
+            <td class="small muted">支持 0 · 反对 0</td>
+            <td><span class="badge amber">验证中</span></td>
+          </tr>
+          <tr>
+            <td style="max-width:280px;"><div class="small strong">宏观趋势文章能有效驱动产品下载</div></td>
+            <td class="small muted">全部<br>公众号</td>
+            <td class="small muted">CNT-2026-0006</td>
+            <td class="small">阅读→激活</td>
+            <td class="small muted">支持 0 · 反对 2（阅读 1.1 万仅 3 激活）</td>
+            <td><span class="badge red">已否决</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 待确认的假设更新 -->
+    <div class="card mt-lg">
+      <div class="card-pad between" style="border-bottom:1px solid var(--border);">
+        <div>
+          <div class="section-title">Agent 提议的库更新（2）</div>
+          <div class="section-sub">来自本周复盘 · 你确认后才生效</div>
+        </div>
+      </div>
+      <div class="card-pad" style="display:flex; flex-direction:column; gap:12px;">
+        <div class="between item" style="padding:13px;">
+          <div>
+            <div class="small strong">① 建议将「录屏实操类激活优势」从假设升级为策略</div>
+            <div class="tiny muted" style="margin-top:3px;">依据：连续 2 条内容、3 个独立证据窗口，激活效率稳定在均值 2 倍以上。</div>
+          </div>
+          <div class="row">
+            <button class="btn sm primary">确认升级</button>
+            <button class="btn sm ghost">暂不</button>
+          </div>
+        </div>
+        <div class="between item" style="padding:13px;">
+          <div>
+            <div class="small strong">② 建议新增假设：「CTA 置于正文第 2 屏比置于文末提升产品页点击」</div>
+            <div class="tiny muted" style="margin-top:3px;">依据：CNT-2026-0009 与 0011 的间接对比，建议用 EXP-2026-009 正式验证。</div>
+          </div>
+          <div class="row">
+            <button class="btn sm primary">确认入库</button>
+            <button class="btn sm ghost">暂不</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 策略库 -->
+    <div class="between mt-lg">
+      <div>
+        <div class="section-title">内容策略库（已验证做法）</div>
+        <div class="section-sub">格式：<strong>在什么受众、什么平台、什么目标下，哪种做法更有效</strong></div>
+      </div>
+    </div>
+
+    <div class="grid mt" style="grid-template-columns:1fr 1fr;">
+      <div class="card card-pad">
+        <div class="between"><span class="badge teal plain">策略 STR-003</span><span class="tiny soft">证据窗口 ×3</span></div>
+        <div class="small strong mt">知乎：问题导向长回答 + 弱营销，激活效率最高</div>
+        <dl class="kv mt" style="font-size:12.5px;">
+          <dt>适用条件</dt><dd>数据分析师 · 认知/考虑阶段 · 知乎</dd>
+          <dt>做法</dt><dd>结论前置，品牌只在结尾出现一次，评论区置顶放下载链接</dd>
+          <dt>效果</dt><dd>阅读→激活 1.0%（平台均值 3 倍）</dd>
+          <dt>失效条件</dt><dd>回答被判定营销限流时改用纯干货版</dd>
+        </dl>
+      </div>
+      <div class="card card-pad">
+        <div class="between"><span class="badge teal plain">策略 STR-007</span><span class="tiny soft">证据窗口 ×2</span></div>
+        <div class="small strong mt">小红书：收藏型卡片 + 评论口令领模板</div>
+        <dl class="kv mt" style="font-size:12.5px;">
+          <dt>适用条件</dt><dd>数据分析师 / 运营 · 考虑阶段 · 小红书</dd>
+          <dt>做法</dt><dd>10 页 3:4 卡片，末页引导评论「模板」，人工回专属链接</dd>
+          <dt>效果</dt><dd>收藏率 17.9%，收藏→激活 6.4%</dd>
+          <dt>失效条件</dt><dd>口令评论超过日处理上限时改为主页链接</dd>
+        </dl>
+      </div>
+      <div class="card card-pad">
+        <div class="between"><span class="badge teal plain">策略 STR-011</span><span class="tiny soft">证据窗口 ×4</span></div>
+        <div class="small strong mt">公众号深度文：案例放第 4 段，CTA 双点布置</div>
+        <dl class="kv mt" style="font-size:12.5px;">
+          <dt>适用条件</dt><dd>业务负责人 · 认知阶段 · 公众号</dd>
+          <dt>做法</dt><dd>观点铺垫 3 段后给真实案例；文中「阅读原文」+ 文末二维码双 CTA</dd>
+          <dt>效果</dt><dd>读完率 41%，产品页访问率 6.0%</dd>
+          <dt>失效条件</dt><dd>无已授权案例时整篇降级为方法文章</dd>
+        </dl>
+      </div>
+      <div class="card card-pad" style="border:1px dashed var(--border-strong); background:var(--surface-2); display:grid; place-items:center; min-height:170px;">
+        <div class="empty">
+          <div>策略不是模板——每条都记录了适用条件与失效条件</div>
+          <div class="tiny mt">当条件不满足时，Agent 不会套用该策略</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="foot-note">两库与 JuanerAI 的假设库 / 策略库同源同构 · 这里是内容运营领域的实例</p>
+  </main>
+</div>
+</body>
+</html>

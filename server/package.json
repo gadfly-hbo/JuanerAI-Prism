@@ -1,0 +1,17 @@
+{
+  "name": "@prism/server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.ts",
+    "start": "node src/index.ts",
+    "seed": "node src/seed.ts",
+    "test": "node --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.24.1"
+  }
+}

@@ -1,0 +1,49 @@
+# Content IR Schema（内容中间表示）
+# 一条内容的唯一事实源。所有平台版本必须从同一个 Content IR 派生。
+# 本文件是契约：server 侧 zod schema 与之一一对应（server/src/core/contentIR.ts）。
+
+version: 1
+
+fields:
+  content_id:      { type: string, pattern: "^CNT-\\d{4}-\\d{4}$", required: true }
+  campaign_id:     { type: string, pattern: "^CAM-\\d{4}-\\d{3}$", required: true }
+  title:           { type: string, required: true }
+  objective:       { type: enum, values: [O1_认知, O2_激活, O3_企业信号], required: true }
+  funnel_stage:    { type: enum, values: [awareness, consideration, activation, team, enterprise], required: true }
+  persona:
+    type: object
+    fields:
+      role:     { type: string, required: true }
+      maturity: { type: string }
+  job_to_be_done:      { type: string, required: true }
+  user_problem:        { type: string, required: true }
+  core_thesis:         { type: string, required: true }
+  content_hypothesis:  { type: string, required: true }
+  key_claims:
+    type: array
+    item:
+      claim_id:    { type: string, pattern: "^CLM-", required: true }
+      statement:   { type: string, required: true }
+      claim_type:  { type: enum, values: [fact, product_capability, inference, opinion], required: true }
+      evidence_ref:{ type: string }
+      status:      { type: enum, values: [verified, pending_review, rejected], required: true }
+  counterpoints:  { type: array, item: string, min: 1 }   # 反方观点必须保留，不得为空
+  canonical_structure:
+    type: object
+    fields: [hook, problem, mechanism, example, limitation, cta]
+  channel_intents:
+    type: object
+    fields: [wechat, zhihu, xiaohongshu, douyin]
+  experiment:
+    type: object
+    fields:
+      variable: { type: string }
+      variants: { type: array, item: string }
+  success_metrics: { type: array, item: string, required: true }
+  risk_level:      { type: enum, values: [low, medium, high], required: true }
+  approval_required: { type: boolean, const: true }        # 永远为 true
+
+rules:
+  - 任何 product_capability 主张必须在 config/product-truth.yaml 中有对应已上线条目
+  - counterpoints 为空时内容不得进入 CHANNEL_ADAPTED
+  - approval_required 恒为 true，系统不提供绕过入口

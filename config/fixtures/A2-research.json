@@ -1,0 +1,18 @@
+{
+  "facts": [
+    { "claim_id": "CLM-041", "statement": "2025 年社会消费品零售总额同比增速降至 4.1%", "claim_type": "fact", "source": "国家统计局公报", "source_time": "2026-01", "confidence": "high", "public_ok": true },
+    { "claim_id": "CLM-001", "statement": "原始数据可留在本地执行环境，不发送给云端大模型", "claim_type": "product_capability", "source": "PRODUCT-CAP-LOCAL-001", "source_time": "2026-09", "confidence": "high", "public_ok": true }
+  ],
+  "inferences": [
+    { "claim_id": "CLM-042", "statement": "存量竞争中，决策质量对经营结果的边际贡献上升", "claim_type": "inference", "source": "基于 3 个行业案例的归纳", "confidence": "medium", "public_ok": true }
+  ],
+  "counterpoints": [
+    "本地模式仍需明确元数据与模型调用的边界",
+    "「决策红利」是方向性判断，不构成对任何企业经营效果的承诺"
+  ],
+  "usable_cases": [
+    { "id": "CASE-RETAIL-001", "desc": "某零售客户销售下降复盘：3 个候选解释（客流/客单价/品类结构），最终定位品类结构", "authorized": true, "anonymized": true }
+  ],
+  "blocked": ["客户真实经营数字（未授权）", "竞品对比评价"],
+  "open_questions": ["CLM-042 需要更多样本或措辞软化"]
+}

@@ -1,0 +1,9 @@
+{
+  "asset_tasks": [
+    { "platform": "wechat", "kind": "封面图", "spec": "900×383，主视觉：棱镜分光", "status": "ready" },
+    { "platform": "xiaohongshu", "kind": "图文卡片", "spec": "10 页 3:4，封面大字标题，末页模板领取", "status": "ready" },
+    { "platform": "douyin", "kind": "分镜脚本", "spec": "4 镜头：口播开场 8s / 录屏实操 30s / 公式动画 12s / CTA 10s", "status": "pending_screenrecording" },
+    { "platform": "douyin", "kind": "字幕文件", "spec": "58s 口播字幕", "status": "ready" }
+  ],
+  "ai_labels": { "text": true, "image": true, "video": true }
+}

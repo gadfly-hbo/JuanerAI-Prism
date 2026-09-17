@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>战略驾驶舱 · JuanerAI Prism</title>
+<link rel="stylesheet" href="assets/prism.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ======== 侧边栏（全站共用） ======== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4.5 L18.5 18.5 H1.5 Z" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.08)"/>
+          <line x1="14" y1="12.5" x2="22.5" y2="9.5" stroke="#e0913c" stroke-width="1.3"/>
+          <line x1="14.8" y1="14.5" x2="23" y2="14.5" stroke="#4fae62" stroke-width="1.3"/>
+          <line x1="14" y1="16.3" x2="22.5" y2="19.3" stroke="#7b5ee3" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div>
+        <strong>Prism · 棱镜</strong>
+        <span>JuanerAI 内容运营工作台</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-group">工作台</div>
+      <a href="index.html" class="active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
+        战略驾驶舱
+      </a>
+      <a href="topics.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        选题雷达
+        <span class="count">6</span>
+      </a>
+      <a href="studio.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 L20 4"/><path d="M14 4 h6 v6"/></svg>
+        内容工作室
+      </a>
+      <a href="channels.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg>
+        四平台适配
+      </a>
+      <a href="review.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 l7 3 v6 c0 4.5 -3 7.5 -7 9 c-4 -1.5 -7 -4.5 -7 -9 v-6 Z"/><path d="M9 12 l2 2 l4 -4"/></svg>
+        审查中心
+        <span class="count">3</span>
+      </a>
+      <a href="calendar.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+        日历与发布
+      </a>
+
+      <div class="nav-group">增长与学习</div>
+      <a href="analytics.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 V10"/><path d="M10 20 V4"/><path d="M16 20 v-7"/><path d="M22 20 H2"/></svg>
+        增长分析
+      </a>
+      <a href="library.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4 h11 a3 3 0 0 1 3 3 v13 H8 a3 3 0 0 1 -3 -3 Z"/><path d="M5 17 a3 3 0 0 1 3 -3 h11"/></svg>
+        假设与策略库
+      </a>
+      <a href="community.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12 a8 8 0 1 1 -3.2 -6.4 L21 5 l-1 3.4 A7.9 7.9 0 0 1 21 12 Z"/></svg>
+        评论与线索
+        <span class="count">5</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="avatar">总</div>
+      <div>
+        <div class="small strong">人类总编</div>
+        <small>发布前必须经你批准</small>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ======== 主区 ======== -->
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h1>战略驾驶舱</h1>
+        <p class="desc">这里回答三个问题：我们的内容目标是什么、现在跑到哪了、下一步该做什么。所有 Agent 的工作都围绕这里设定的目标展开。</p>
+      </div>
+      <div class="actions">
+        <button class="btn">导出周报</button>
+        <button class="btn primary">＋ 新建内容活动</button>
+      </div>
+    </div>
+
+    <!-- 待处理提示 -->
+    <div class="notice amber mt">
+      <div>⚠️</div>
+      <div><strong class="strong" style="color:var(--text)">3 条内容正等待你批准</strong>（审查中心），其中 1 条被「品牌与合规裁判」打了回，需要你先处理；另有 2 条新选题候选在选题雷达等你决策。</div>
+    </div>
+
+    <!-- 北极星指标 -->
+    <div class="card mt-lg">
+      <div class="card-pad between">
+        <div>
+          <div class="section-sub">北极星指标（本周）</div>
+          <div class="row" style="gap:14px; margin-top:4px;">
+            <h2 style="font-size:16px;">内容归因的周激活分析用户数</h2>
+            <span class="badge teal">激活 = 安装 + 导入数据 + 完成首次真实分析</span>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:34px; font-weight:600; font-variant-numeric:tabular-nums;">47<span class="muted" style="font-size:15px;"> / 60</span></div>
+          <div class="delta up small">▲ 较上周 +12（+34%）</div>
+        </div>
+      </div>
+      <div style="padding:0 16px 16px;">
+        <div class="meter"><i style="width:78%;"></i></div>
+        <div class="tiny soft" style="margin-top:6px;">周目标完成度 78% · 数据截至 2026-09-17 08:00</div>
+      </div>
+    </div>
+
+    <!-- OSM 三目标 -->
+    <div class="between mt-lg">
+      <div>
+        <div class="section-title">本季度目标（OSM）</div>
+        <div class="section-sub">Agent 生成的每一条内容，都必须服务以下三个目标之一</div>
+      </div>
+      <button class="btn sm">编辑目标</button>
+    </div>
+
+    <div class="grid mt" style="grid-template-columns:repeat(3,1fr);">
+      <div class="card card-pad">
+        <div class="between">
+          <span class="badge blue">O1 · 认知</span>
+          <span class="tiny soft">权重 30%</span>
+        </div>
+        <h3 class="mt" style="font-size:15px;">建立「决策候选」品类认知</h3>
+        <p class="small muted" style="margin-top:6px;">让用户理解：BI 给数据，智能问数给答案，JuanerAI 给可验证、可比较、可执行的决策候选。</p>
+        <div class="mt">
+          <div class="between tiny muted"><span>品类关键词搜索排名</span><span>Top 8</span></div>
+          <div class="meter" style="margin-top:5px;"><i style="width:55%;"></i></div>
+        </div>
+      </div>
+
+      <div class="card card-pad" style="border-color:var(--primary);">
+        <div class="between">
+          <span class="badge teal">O2 · 获客激活</span>
+          <span class="tiny soft">权重 50% · 当前重心</span>
+        </div>
+        <h3 class="mt" style="font-size:15px;">获取并激活 Xanthil Desktop 个人用户</h3>
+        <p class="small muted" style="margin-top:6px;">内容不是以曝光为终点：访问产品页 → 下载 → 安装 → 完成第一次真实分析 → 7 天内再次使用。</p>
+        <div class="mt">
+          <div class="between tiny muted"><span>本月激活用户</span><span>183 / 240</span></div>
+          <div class="meter" style="margin-top:5px;"><i style="width:76%;"></i></div>
+        </div>
+      </div>
+
+      <div class="card card-pad">
+        <div class="between">
+          <span class="badge violet">O3 · C2B 线索</span>
+          <span class="tiny soft">权重 20%</span>
+        </div>
+        <h3 class="mt" style="font-size:15px;">发现团队与企业转化信号</h3>
+        <p class="small muted" style="margin-top:6px;">从互动与使用中识别：团队共享、数据库接入、权限审计与私有化需求，沉淀 Domain Pack 场景。</p>
+        <div class="mt">
+          <div class="between tiny muted"><span>本月企业访谈 / 试点线索</span><span>4 / 2</span></div>
+          <div class="meter" style="margin-top:5px;"><i style="width:40%;"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 本月活动 + 漏斗 -->
+    <div class="grid mt-lg" style="grid-template-columns: 1.7fr 1fr;">
+      <div class="card">
+        <div class="card-pad between" style="border-bottom:1px solid var(--border);">
+          <div>
+            <div class="section-title">进行中的内容活动</div>
+            <div class="section-sub">每个活动下辖若干内容资产，按状态推进</div>
+          </div>
+          <a class="btn sm" href="calendar.html">查看日历</a>
+        </div>
+        <table class="data">
+          <thead>
+            <tr><th>活动</th><th>服务目标</th><th>内容数</th><th>状态</th><th>本周激活贡献</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="strong">CAM-2026-003 决策红利认知战役</div><div class="tiny soft">主打主题：从执行红利到决策红利</div></td>
+              <td><span class="tag">O1 认知</span></td>
+              <td>4</td>
+              <td><span class="badge amber">进行中</span></td>
+              <td>12</td>
+              <td><a class="btn sm ghost" href="studio.html">进入 →</a></td>
+            </tr>
+            <tr>
+              <td><div class="strong">CAM-2026-004 本地隐私实战系列</div><div class="tiny soft">数据不出本机完成真实分析</div></td>
+              <td><span class="tag">O2 激活</span></td>
+              <td>6</td>
+              <td><span class="badge green">已发布 3 篇</span></td>
+              <td>29</td>
+              <td><a class="btn sm ghost" href="studio.html">进入 →</a></td>
+            </tr>
+            <tr>
+              <td><div class="strong">CAM-2026-005 销售下降复盘模板</div><div class="tiny soft">实战案例 · 收藏型教程</div></td>
+              <td><span class="tag">O2 激活</span></td>
+              <td>3</td>
+              <td><span class="badge">筹备中</span></td>
+              <td>—</td>
+              <td><a class="btn sm ghost" href="studio.html">进入 →</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card card-pad">
+        <div class="section-title">内容漏斗（近 30 天）</div>
+        <div class="section-sub">从曝光到企业信号，逐级转化</div>
+        <div class="mt">
+          <div class="funnel-row"><span class="small muted">内容触达</span><div class="bar"><i style="width:100%"></i></div><span class="num">128k</span></div>
+          <div class="funnel-row"><span class="small muted">有效阅读</span><div class="bar"><i style="width:46%"></i></div><span class="num">18.4k</span></div>
+          <div class="funnel-row"><span class="small muted">产品页访问</span><div class="bar"><i style="width:9%"></i></div><span class="num">3,562</span></div>
+          <div class="funnel-row"><span class="small muted">下载安装</span><div class="bar"><i style="width:3.2%"></i></div><span class="num">1,271</span></div>
+          <div class="funnel-row"><span class="small muted">首次成功分析</span><div class="bar"><i style="width:1.5%"></i></div><span class="num">592</span></div>
+          <div class="funnel-row"><span class="small muted">7日重复使用</span><div class="bar"><i style="width:.7%"></i></div><span class="num">287</span></div>
+          <div class="funnel-row"><span class="small muted">团队/企业信号</span><div class="bar"><i style="width:.12%"></i></div><span class="num">16</span></div>
+        </div>
+        <div class="notice mt" style="font-size:12.5px;">
+          <div>💡</div>
+          <div>「产品页访问 → 下载」转化 35.7%，高于基线；瓶颈在「阅读 → 产品页访问」，本周 A/B 实验正在测试 CTA 位置。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 四条内容策略 -->
+    <div class="mt-lg">
+      <div class="section-title">本期内容策略（S）</div>
+      <div class="section-sub">选题雷达里的每个候选都会标注它服务哪条策略</div>
+    </div>
+    <div class="grid mt" style="grid-template-columns:repeat(4,1fr);">
+      <div class="card card-pad">
+        <div class="strong small">S1 · 痛点切入</div>
+        <p class="tiny muted" style="margin-top:5px;">取数、清洗、验证、隐私、报告无人行动——从真实工作困境获客。</p>
+        <div class="tiny soft mt">在用内容 9 条</div>
+      </div>
+      <div class="card card-pad">
+        <div class="strong small">S2 · 实战证明</div>
+        <p class="tiny muted" style="margin-top:5px;">销售下降、会员复购、商品库存三个案例，证明产品可用。</p>
+        <div class="tiny soft mt">在用内容 6 条</div>
+      </div>
+      <div class="card card-pad">
+        <div class="strong small">S3 · 方法建信任</div>
+        <p class="tiny muted" style="margin-top:5px;">假设—证据—证伪、Analysis IR、决策候选的可信分析方法。</p>
+        <div class="tiny soft mt">在用内容 4 条</div>
+      </div>
+      <div class="card card-pad">
+        <div class="strong small">S4 · 公开构建</div>
+        <p class="tiny muted" style="margin-top:5px;">产品负责人视角：设计取舍、用户反馈、失败与迭代。</p>
+        <div class="tiny soft mt">在用内容 3 条</div>
+      </div>
+    </div>
+
+    <p class="foot-note">JuanerAI Prism 原型 · 数据为演示样例 · 最终发布永远需要人类总编批准</p>
+  </main>
+</div>
+</body>
+</html>

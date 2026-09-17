@@ -1,0 +1,63 @@
+# 裁判评分规则（Judge Rubrics）
+# 三个裁判独立运行，不得由创作 Agent 自评替代。
+# verdict: pass | warn | fail —— 任何 fail 都会把内容打回 failback_to 指定节点。
+
+evidence_judge:
+  name: 事实裁判
+  checks:
+    - id: ev-source
+      desc: 每条事实主张有可追溯的 Claim Record 与来源
+      severity: fail
+    - id: ev-fresh
+      desc: 数据在有效期内（默认 18 个月）
+      severity: warn
+    - id: ev-mislabel
+      desc: 推断/观点未被写成事实口吻
+      severity: fail
+    - id: ev-counter
+      desc: 反方观点与限制完整保留、未被弱化
+      severity: fail
+    - id: ev-truth
+      desc: 产品能力主张与 product-truth 中已上线条目一致
+      severity: fail
+  fallback_to: RESEARCHED
+
+brand_compliance_judge:
+  name: 品牌与合规裁判
+  checks:
+    - id: bc-position
+      desc: 符合品牌定位与语气
+      severity: warn
+    - id: bc-exaggeration
+      desc: 无夸大表达与效果承诺
+      severity: fail
+    - id: bc-case-auth
+      desc: 客户案例有授权记录且未超授权范围
+      severity: fail
+    - id: bc-sensitive
+      desc: 无企业/个人敏感信息泄露
+      severity: fail
+    - id: bc-ai-label
+      desc: AI 生成内容标识完整
+      severity: fail
+    - id: bc-capability
+      desc: 未宣传 planned/unsupported 能力
+      severity: fail
+  fallback_to: CANONICAL_DRAFTED
+
+channel_quality_judge:
+  name: 平台格式裁判
+  checks:
+    - id: cq-format
+      desc: 符合平台内容形态（标题长度/比例/字幕/标签数）
+      severity: fail
+    - id: cq-consistency
+      desc: 标题、封面、开头、CTA 与主内容一致
+      severity: fail
+    - id: cq-not-copy
+      desc: 非同文搬运（平台间文本相似度 < 60%）
+      severity: warn
+    - id: cq-assets
+      desc: 发布所需素材齐备
+      severity: warn
+  fallback_to: CHANNEL_ADAPTED

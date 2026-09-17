@@ -1,0 +1,48 @@
+# 产品能力单一事实源（Product Truth Source）
+# 任何产品能力主张必须从这里检索，Agent 不得根据历史对话想象。
+# status: live=已上线 beta=内测 planned=计划 unsupported=明确不支持
+
+version: "0.9.2"
+updated: 2026-09-10
+
+capabilities:
+  - id: PRODUCT-CAP-LOCAL-001
+    statement: 原始数据可留在本地执行环境，LLM 只接触元数据与生成代码
+    status: live
+    since: "0.8.0"
+    public_demo: true
+    notes: 演示时必须同时说明「元数据会发送给模型」这一边界
+
+  - id: PRODUCT-CAP-EXCEL-001
+    statement: 支持 Excel / CSV 文件直连导入分析，含日期格式手动重新解析
+    status: live
+    since: "0.9.2"
+    public_demo: true
+
+  - id: PRODUCT-CAP-CANDIDATE-001
+    statement: 对分析问题生成多个可比较、带证据、可证伪的决策候选
+    status: live
+    since: "0.9.0"
+    public_demo: true
+
+  - id: PRODUCT-CAP-MYSQL-001
+    statement: 直连企业 MySQL 数据库
+    status: planned
+    public_demo: false
+    notes: 不得在公开内容中宣传为已上线能力
+
+  - id: PRODUCT-CAP-TEAM-001
+    statement: 团队共享分析模板与统一指标口径
+    status: planned
+    public_demo: false
+
+  - id: PRODUCT-CAP-PRIVATE-001
+    statement: 私有化部署
+    status: planned
+    public_demo: false
+    notes: 可在企业线索沟通中提及「在规划」，不得写成已支持
+
+  - id: PRODUCT-CAP-AUTO-001
+    statement: 企业级自动驾驶（无人值守自动决策执行）
+    status: unsupported
+    notes: 任何内容不得暗示该能力存在
