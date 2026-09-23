@@ -1,17 +1,12 @@
 // REST API 全量路由
 import { Router } from 'express';
-import { mkdirSync, writeFileSync } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { all, get, nextId, run, touchContent, tx } from './db.ts';
 import { currentState, transition, latestJudgeResults, STATES } from './core/stateMachine.ts';
 import { advance, approve, reject, JudgeFailedError, ContentBusyError } from './core/controller.ts';
 import { adoptTopic, createVariant, listTopics, topicCompare } from './core/variants.ts';
 import { confirmProposal } from './core/library.ts';
+import { exportPublishPackage } from './core/exporter.ts';
 import { runStrategyAgent, runGrowthAgent, runVariantConclusionAgent, PLATFORMS } from './agents/index.ts';
-
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const EXPORTS_DIR = path.join(ROOT, 'exports');
 
 export const api = Router();
 
@@ -175,34 +170,11 @@ api.get('/review/queue', wrap(async (_req, res) => {
 }));
 
 // ---------- 发布 ----------
-// 导出发布包（L0）：每个已批准平台一个目录。platform 经过白名单校验，防路径穿越。
+// 导出发布包（L0）：文件写入与路径守卫在 core/exporter.ts（防路径穿越）
 api.post('/contents/:id/export', wrap(async (req, res) => {
-  const id = req.params.id;
+  const id = String(req.params.id);
   if (!/^CNT-\d{4}-\d{4}$/.test(id)) throw new Error('非法的内容 ID');
-  const state = currentState(id);
-  if (state !== 'HUMAN_APPROVED' && state !== 'SCHEDULED') throw new Error(`状态 ${state} 不能导出发布包（需先人工批准）`);
-  const variants = all(`SELECT * FROM channel_variants WHERE content_id = ? AND approved = 1`, id);
-  if (variants.length === 0) throw new Error('没有已批准的平台版本');
-  const dir = path.join(EXPORTS_DIR, id);
-  mkdirSync(dir, { recursive: true });
-  const out = [];
-  for (const v of variants) {
-    if (!PLATFORMS.includes(v.platform) || !/^[a-z]+$/.test(v.platform)) {
-      throw new Error(`平台标识非法（${JSON.stringify(v.platform)}），拒绝导出`);
-    }
-    const pdir = path.join(dir, v.platform);
-    mkdirSync(pdir, { recursive: true });
-    writeFileSync(path.join(pdir, 'body.md'), `# ${v.title}\n\n${v.body}\n\n---\nCTA：${v.cta ?? ''}\n`);
-    writeFileSync(path.join(pdir, 'manifest.json'), JSON.stringify({
-      content_id: id, platform: v.platform, title: v.title, utm: v.utm,
-      ai_label: true, exported_at: new Date().toISOString(),
-    }, null, 2));
-    run(`INSERT INTO publish_packages (content_id, platform, path, utm, status) VALUES (?, ?, ?, ?, 'exported')
-         ON CONFLICT(content_id, platform) DO UPDATE SET path=excluded.path, utm=excluded.utm`,
-      id, v.platform, pdir, v.utm);
-    out.push({ platform: v.platform, path: pdir, utm: v.utm });
-  }
-  res.json({ exported: out });
+  res.json({ exported: exportPublishPackage(id) });
 }));
 
 // 预约发布（SCHEDULED）

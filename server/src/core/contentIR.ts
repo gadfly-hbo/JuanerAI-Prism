@@ -53,13 +53,16 @@ export type ContentIR = z.infer<typeof ContentIRSchema>;
 /** 选题采纳阶段的草稿 IR：研究前允许 claims 为空；进入主内容生成前必须通过完整校验 */
 export const DraftIRSchema = ContentIRSchema.extend({ key_claims: z.array(ClaimSchema) });
 
+/** Zod issue 的字段路径（属性名数组）转「a.b」可读串——与文件系统无关，勿按路径拼接审计 */
+const issuePath = (issue: { path: (string | number)[] }) => issue.path.map(String).join('.');
+
 export function validateContentIR(data: unknown): { ok: true; ir: ContentIR } | { ok: false; errors: string[] } {
   const r = ContentIRSchema.safeParse(data);
   if (r.success) return { ok: true, ir: r.data };
-  return { ok: false, errors: r.error.issues.map(i => `${i.path.join('.')}: ${i.message}`) };
+  return { ok: false, errors: r.error.issues.map(i => `${issuePath(i)}: ${i.message}`) };
 }
 
 export function validateDraftIR(data: unknown): { ok: boolean; errors: string[] } {
   const r = DraftIRSchema.safeParse(data);
-  return r.success ? { ok: true, errors: [] } : { ok: false, errors: r.error.issues.map(i => `${i.path.join('.')}: ${i.message}`) };
+  return r.success ? { ok: true, errors: [] } : { ok: false, errors: r.error.issues.map(i => `${issuePath(i)}: ${i.message}`) };
 }
