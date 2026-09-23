@@ -27,6 +27,7 @@ export interface Overview {
 export interface ContentDetail {
   id: string;
   campaign_id: string;
+  topic_id?: string;
   title: string;
   state: string;
   risk_level: string;

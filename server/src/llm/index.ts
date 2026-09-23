@@ -175,8 +175,15 @@ class AnthropicCompatibleProvider implements LLMProvider {
 }
 
 export function getProvider(): LLMProvider {
+  if (override) return override;
   const kind = process.env.PRISM_LLM_PROVIDER;
   if (kind === 'openai') return new OpenAICompatibleProvider();
   if (kind === 'anthropic') return new AnthropicCompatibleProvider();
   return new MockProvider();
+}
+
+// 测试注入点：安装可控 provider（延迟/计数/捕获提示词）。不传参即恢复默认。生产代码不调用。
+let override: LLMProvider | null = null;
+export function setProvider(p?: LLMProvider) {
+  override = p ?? null;
 }

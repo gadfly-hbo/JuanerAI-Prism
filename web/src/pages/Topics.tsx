@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../api';
+import { api, STATE_LABEL } from '../api';
 import { Badge, Btn, Card, Notice, PageHead } from '../ui';
 
 const METRIC_LABEL: Record<string, string> = {
@@ -22,6 +22,8 @@ export default function Topics() {
   const [filter, setFilter] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [draft, setDraft] = useState({ title: '', campaign_id: '', strategy: 'S1 痛点切入', user_problem: '' });
+  const [variantFor, setVariantFor] = useState<string | null>(null);
+  const [variantDraft, setVariantDraft] = useState({ hypothesis: '', persona: '', funnel_stage: '' });
   const nav = useNavigate();
 
   const load = () => api.get<any[]>('/topics').then(setTopics).catch(e => setErr(e.message));
@@ -47,6 +49,18 @@ export default function Topics() {
     } catch (e: any) { alert(e.message); }
   };
   const shelve = async (id: string) => { await api.post(`/topics/${id}/shelve`); load(); };
+
+  const createVariant = async (id: string) => {
+    if (!variantDraft.hypothesis.trim()) return;
+    try {
+      const r = await api.post<{ content_id: string }>(`/topics/${id}/variant`, {
+        hypothesis: variantDraft.hypothesis.trim(),
+        persona: variantDraft.persona.trim() || undefined,
+        funnel_stage: variantDraft.funnel_stage || undefined,
+      });
+      nav(`/studio/${r.content_id}`);
+    } catch (e: any) { alert(e.message); }
+  };
 
   // 信号汇总：从各选题的来源标签聚合（如「搜索问题 ×14」）
   const signalTotals: Record<string, number> = {};
@@ -145,9 +159,16 @@ export default function Topics() {
           return (
             <div key={t.id} className={`border border-line rounded-base bg-surface p-4 ${pending ? '' : 'opacity-70'}`}>
               <div className="flex items-center justify-between">
-                <Badge kind={pending ? 'amber' : t.status === 'adopted' ? 'green' : 'neutral'}>
-                  {pending ? '待决策' : t.status === 'adopted' ? '已采纳' : '已搁置'}
-                </Badge>
+                <div className="flex items-center gap-1.5">
+                  <Badge kind={pending ? 'amber' : t.status === 'adopted' ? 'green' : 'neutral'}>
+                    {pending ? '待决策' : t.status === 'adopted' ? '已采纳' : '已搁置'}
+                  </Badge>
+                  {t.status === 'adopted' && (
+                    <span className="text-meta bg-surface-3 rounded px-1.5 py-0.5 text-muted">
+                      已开 {t.variant_count} 个变体（上限 3）
+                    </span>
+                  )}
+                </div>
                 <span className="text-meta text-soft">来自：{(p.sources ?? []).join(' · ') || '手动添加'}</span>
               </div>
               <h3 className="mt-2 text-[14.5px] font-semibold">{t.title}</h3>
@@ -176,6 +197,68 @@ export default function Topics() {
                 <div className="flex gap-2 mt-3">
                   <Btn kind="primary" small onClick={() => adopt(t.id)}>✓ 采纳，进入研究</Btn>
                   <Btn small ghost onClick={() => shelve(t.id)}>搁置</Btn>
+                </div>
+              )}
+              {t.status === 'adopted' && (t.variants ?? []).length > 0 && (
+                <dl className="grid gap-x-3 gap-y-1 mt-2.5 text-[13px]" style={{ gridTemplateColumns: '88px 1fr' }}>
+                  {(t.variants as any[]).map(v => (
+                    <div key={v.id} className="contents">
+                      <dt className="text-soft">变体 {v.variant_label}</dt>
+                      <dd className="flex items-center gap-1.5 min-w-0">
+                        <Badge kind={v.state === 'PUBLISHED' || ['MEASURED_24H', 'MEASURED_72H', 'MEASURED_7D', 'LEARNED', 'ARCHIVED'].includes(v.state) ? 'green'
+                          : v.state === 'JUDGED' || v.state === 'HUMAN_APPROVED' || v.state === 'SCHEDULED' ? 'amber' : 'blue'} dot={false}>
+                          {STATE_LABEL[v.state] ?? v.state}
+                        </Badge>
+                        <span className="truncate text-muted">{v.hypothesis || v.id}</span>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+              {t.status === 'adopted' && (
+                <div className="flex gap-2 mt-3">
+                  <Btn small onClick={() => {
+                    setVariantFor(variantFor === t.id ? null : t.id);
+                    setVariantDraft({ hypothesis: '', persona: '', funnel_stage: '' });
+                  }}>＋ 开变体</Btn>
+                  <span className="text-meta text-soft self-center">同一选题最多 3 个变体，各自独立走完整流水线</span>
+                </div>
+              )}
+              {variantFor === t.id && t.status === 'adopted' && (
+                <div className="mt-2.5 border border-line rounded-base bg-surface-2 p-3.5">
+                  <div className="text-small font-semibold">开变体（下一个标签：{['A', 'B', 'C'].find(l => !(t.variants ?? []).some((v: any) => v.variant_label === l)) ?? '—'}）</div>
+                  <div className="text-meta text-soft mt-0.5">必填一句「变体假设/角度」：它会写进这篇的内容假设，并告知 Research Agent 必须与其他变体角度不同</div>
+                  <div className="grid gap-3 mt-2.5" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
+                    <label className="flex flex-col gap-1">
+                      <span className="text-small text-muted">变体假设 / 角度 *</span>
+                      <input autoFocus className="border border-line-strong rounded-sm px-2.5 py-1.5 text-[13px]"
+                        placeholder="例：用成本对比切入，验证理性决策角度是否更快促成下载"
+                        value={variantDraft.hypothesis} onChange={e => setVariantDraft({ ...variantDraft, hypothesis: e.target.value })} />
+                    </label>
+                    <label className="flex flex-col gap-1">
+                      <span className="text-small text-muted">目标人群（可选）</span>
+                      <input className="border border-line-strong rounded-sm px-2.5 py-1.5 text-[13px]"
+                        placeholder="留空沿用选题设定"
+                        value={variantDraft.persona} onChange={e => setVariantDraft({ ...variantDraft, persona: e.target.value })} />
+                    </label>
+                    <label className="flex flex-col gap-1">
+                      <span className="text-small text-muted">漏斗阶段（可选）</span>
+                      <select className="border border-line-strong rounded-sm px-2.5 py-1.5 text-[13px] bg-surface"
+                        value={variantDraft.funnel_stage} onChange={e => setVariantDraft({ ...variantDraft, funnel_stage: e.target.value })}>
+                        <option value="">沿用选题设定</option>
+                        <option value="awareness">认知 awareness</option>
+                        <option value="consideration">考虑 consideration</option>
+                        <option value="decision">决策 decision</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div className="flex gap-2 mt-2.5">
+                    <Btn kind="primary" small onClick={() => createVariant(t.id)}
+                      disabled={!variantDraft.hypothesis.trim() || t.variant_count >= 3}>
+                      创建变体
+                    </Btn>
+                    <Btn small ghost onClick={() => setVariantFor(null)}>取消</Btn>
+                  </div>
                 </div>
               )}
             </div>

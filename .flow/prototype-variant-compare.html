@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>v0.2 原型评审 · 实验对照与开变体 · JuanerAI Prism</title>
+<link rel="stylesheet" href="../prototype/assets/prism.css">
+<style>
+  .proto-label { font-size: 12px; letter-spacing: .08em; color: var(--primary-ink); background: var(--primary-soft); display: inline-block; padding: 3px 10px; border-radius: 999px; font-weight: 600; }
+  .num { font-variant-numeric: tabular-nums; }
+  .variant-card { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; background: var(--surface); }
+  .variant-card.current { border-color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="app">
+  <main class="main" style="max-width: 1060px; margin: 0 auto;">
+    <div class="page-head">
+      <div>
+        <h1>v0.2 原型评审：同主题实验对照</h1>
+        <p class="desc">这一页只做一件事：给你确认两处新界面的样子——①选题雷达里怎么「开变体」，②内容工作室里怎么看「实验对照」。布局确认后我再做成正式页面。</p>
+      </div>
+    </div>
+
+    <div class="notice" style="font-size:12.5px;">
+      <div>🧪</div>
+      <div><strong>这个功能解决什么问题：</strong>同一个选题只能写一篇，复盘只能说「这篇如何」。开变体后，同一选题最多 3 篇不同角度的内容各自走完整流水线，发布后在这里并排比较——哪种假设更有效，用数据说话，结论经你确认后写入假设库。</div>
+    </div>
+
+    <!-- ============ ① 选题雷达新增 ============ -->
+    <div class="mt-lg">
+      <span class="proto-label">① 选题雷达 · 新增</span>
+      <div class="section-sub mt" style="margin-top:8px;">已采纳的选题多出「开变体」入口；卡片上直接告诉你已开了几个。</div>
+
+      <div class="card item mt">
+        <div class="between">
+          <div class="row">
+            <span class="badge green">已采纳</span>
+            <span class="tag">已开 2 个变体（上限 3）</span>
+          </div>
+          <span class="tiny soft">来自：评论聚合 ×6 · 产品反馈 ×2</span>
+        </div>
+        <h3 class="mt">本地大模型数据安全入门：你的数据到底去了哪里</h3>
+        <dl class="kv mt">
+          <dt>变体 A · 已发布</dt><dd>假设：数据安全顾虑是阻碍首次使用的第一道墙</dd>
+          <dt>变体 B · 进行中</dt><dd>假设：用成本对比（本地 vs 云端）让理性用户更快下决心</dd>
+        </dl>
+        <div class="row mt">
+          <button class="btn sm">＋ 开变体</button>
+          <button class="btn sm ghost">在工作室中查看</button>
+        </div>
+      </div>
+
+      <div class="card item mt">
+        <div class="between">
+          <span class="tiny strong">点「＋ 开变体」后出现</span>
+          <span class="tiny soft">同选题最多 3 个存活变体，含第一篇</span>
+        </div>
+        <div class="card-pad" style="border:1px solid var(--border); border-radius:8px; margin-top:10px; background: var(--surface-2);">
+          <dl class="kv">
+            <dt>变体假设 / 角度 <span style="color:var(--red);">*</span></dt>
+            <dd><div class="prose-box">必填一句话，例：「用成本对比切入，验证理性决策角度是否更快促成下载」。它会写进这篇的内容假设，并告知 Research Agent 必须与其他变体角度不同。</div></dd>
+            <dt>目标人群（可选）</dt><dd><div class="prose-box soft">留空则沿用选题设定</div></dd>
+            <dt>漏斗阶段（可选）</dt><dd><span class="badge blue plain">认知 awareness</span></dd>
+          </dl>
+          <div class="row mt">
+            <button class="btn primary sm">创建变体（标签 B）</button>
+            <button class="btn sm ghost">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ② 内容工作室 · 实验对照 ============ -->
+    <div class="mt-lg">
+      <span class="proto-label">② 内容工作室 · 新增「实验对照」区块</span>
+      <div class="section-sub mt" style="margin-top:8px;">位于内容详情页。有指标数据时并排比较同选题各变体；没有数据时告诉你下一步去哪导入。</div>
+
+      <div class="card mt">
+        <div class="card-pad between" style="border-bottom:1px solid var(--border);">
+          <div>
+            <div class="section-title">实验对照</div>
+            <div class="section-sub">同选题《本地大模型数据安全入门》的 2 个变体 · 累计数据，发布后在「增长分析」导入 CSV 更新</div>
+          </div>
+          <button class="btn sm">提议实验结论</button>
+        </div>
+
+        <div class="card-pad">
+          <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="variant-card">
+              <div class="between">
+                <span class="tag">变体 A</span>
+                <span class="badge green">已发布</span>
+              </div>
+              <div class="small mt"><strong>假设：</strong>数据安全顾虑是阻碍首次使用的第一道墙</div>
+              <div class="tiny soft mt">数据安全入门篇（CNT-2026-0016）</div>
+              <div class="row mt tiny" style="gap:12px;">
+                <span class="plat wechat"><i></i>公众号</span>
+                <span class="plat zhihu"><i></i>知乎</span>
+              </div>
+              <div class="grid mt" style="grid-template-columns: repeat(3, 1fr); gap:8px;">
+                <div class="stat" style="padding:8px 0 0;"><div class="label">阅读</div><div class="value num" style="font-size:20px;">1,500</div></div>
+                <div class="stat" style="padding:8px 0 0;"><div class="label">产品页</div><div class="value" style="font-size:20px;">46</div></div>
+                <div class="stat" style="padding:8px 0 0;"><div class="label">首次分析</div><div class="value" style="font-size:20px;">10</div></div>
+              </div>
+            </div>
+
+            <div class="variant-card current">
+              <div class="between">
+                <span class="tag">变体 B · 领先</span>
+                <span class="badge green">已发布</span>
+              </div>
+              <div class="small mt"><strong>假设：</strong>用成本对比（本地 vs 云端）让理性用户更快下决心</div>
+              <div class="tiny soft mt">成本对比篇（CNT-2026-0017）</div>
+              <div class="row mt tiny" style="gap:12px;">
+                <span class="plat wechat"><i></i>公众号</span>
+              </div>
+              <div class="grid mt" style="grid-template-columns: repeat(3, 1fr); gap:8px;">
+                <div class="stat" style="padding:8px 0 0;"><div class="label">阅读</div><div class="value" style="font-size:20px;">800</div></div>
+                <div class="stat" style="padding:8px 0 0;"><div class="label">产品页</div><div class="value" style="font-size:20px;">52</div></div>
+                <div class="stat" style="padding:8px 0 0;"><div class="label">首次分析</div><div class="value" style="font-size:20px; color: var(--primary);">18</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice mt" style="font-size:12.5px;">
+            <div>🏁</div>
+            <div><strong>领先摘要：</strong>「首次分析」变体 B（公众号）18 次，比变体 A 高 80%；「阅读」变体 A（公众号）1,000 次，比变体 B 高 25%。B 阅读更少但转化更深——数据支持「成本对比角度促成首次分析」的假设。</div>
+          </div>
+
+          <div class="tiny soft mt">点「提议实验结论」：Agent 基于上面的真实数字生成结论与假设库更新提议，先进入「假设与策略库」的待确认列表，<strong>你确认后才会写入假设库</strong>；Agent 不直接修改两库。</div>
+        </div>
+      </div>
+
+      <div class="card item mt">
+        <div class="between">
+          <span class="tiny strong">还没有数据时，区块显示</span>
+        </div>
+        <div class="notice amber mt" style="font-size:12.5px;">
+          <div>📥</div>
+          <div>这组变体还没有指标数据。发布后去「增长分析」导入平台后台导出的 CSV（按 UTM 自动关联），这里就会出现对照。</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="foot-note">原型评审用 · 确认后按此布局实现正式页面 · 视觉规范见 DESIGN.md（2026-09-17）</p>
+  </main>
+</div>
+</body>
+</html>

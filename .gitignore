@@ -9,3 +9,6 @@ exports/
 prototype/output/
 output/
 .zcode/
+
+# dev-flow 本地状态（机器局部，不入库；其余 .flow/*.md 产物随仓库提交）
+.flow/state.json

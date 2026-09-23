@@ -17,7 +17,7 @@ agents:
   research:
     id: A2-research
     stage: RESEARCHED
-    input: [topic, product_truth, evidence_registry]
+    input: [topic, product_truth, evidence_registry, variant_context]  # variant_context：同主题实验变体的差异化角度与已有变体（无变体时为空）
     output: evidence_pack
     tools: [knowledge.read, search]
     forbidden: [写正文]
@@ -56,6 +56,13 @@ agents:
     output: learning_record, library_proposals[]
     tools: [metrics.read, metrics.write]
     forbidden: [直接写入双库（必须人类确认）]
+  variant_conclusion:
+    id: A7-variant-conclusion
+    stage: LEARNED
+    input: [variant_compare, metrics]   # 同选题变体 × 平台累计指标与领先摘要（core/variants.ts topicCompare）
+    output: experiment_conclusion, library_proposals[]
+    tools: [metrics.read]
+    forbidden: [直接写入双库（必须人类确认）, 无数据时编造结论]
 
 judges:
   - evidence

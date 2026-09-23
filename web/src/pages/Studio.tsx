@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { api, ContentDetail, PIPELINE_LABEL, PIPELINE_STEPS, STATE_LABEL } from '../api';
+import { api, ContentDetail, PLATFORM, PIPELINE_LABEL, PIPELINE_STEPS, STATE_LABEL } from '../api';
 import { Badge, Btn, Card, Notice, PageHead, Plat, Section } from '../ui';
 
 const CLAIM_KIND: Record<string, { label: string; cls: string }> = {
@@ -15,8 +15,110 @@ const CANONICAL_LABELS: [string, string][] = [
   ['example', '④ 案例 EXAMPLE'], ['limitation', '⑤ 限制 LIMITATION'], ['cta', '⑥ 行动 CTA'],
 ];
 
-function Pipeline({ state }: { state: string }) {
-  // TRIAGED/BRIEFED 属于选题立项期，MEASURED_* 属于已发布观察期，ARCHIVED 视为全程完成
+const COMPARE_STATS: [string, string][] = [
+  ['reads', '阅读'], ['product_page', '产品页'], ['first_analysis', '首次分析'],
+];
+const COMPARE_METRIC_LABEL: Record<string, string> = { first_analysis: '首次分析', reads: '阅读' };
+
+function stateBadgeKind(state: string): 'green' | 'amber' | 'blue' {
+  if (['PUBLISHED', 'MEASURED_24H', 'MEASURED_72H', 'MEASURED_7D', 'LEARNED', 'ARCHIVED'].includes(state)) return 'green';
+  if (['JUDGED', 'HUMAN_APPROVED', 'SCHEDULED'].includes(state)) return 'amber';
+  return 'blue';
+}
+
+/** 同选题实验对照（原型 prototype/variant-compare.html 已确认）：变体卡 × 累计指标 + 领先摘要 + 结论提议 */
+function VariantCompare({ topicId, currentId }: { topicId: string; currentId: string }) {
+  const [data, setData] = useState<any>(null);
+  const [conclusion, setConclusion] = useState('');
+  useEffect(() => {
+    setConclusion('');
+    api.get<any>(`/topics/${topicId}/variants`).then(setData).catch(() => {});
+  }, [topicId]);
+  if (!data || data.variants.length === 0) return null;
+
+  const hasData = data.variants.some((v: any) => Object.keys(v.totals ?? {}).length > 0);
+  const topLabel = data.summary?.[0]?.leader?.variant;
+
+  const propose = async () => {
+    try {
+      const r = await api.post<{ conclusion: string }>(`/topics/${topicId}/conclusion-proposal`);
+      setConclusion(r.conclusion);
+    } catch (e: any) { alert(e.message); }
+  };
+
+  return (
+    <Card>
+      <div className="p-4 border-b border-line flex items-center justify-between gap-3">
+        <Section title="实验对照" sub={`同选题《${data.topic.title}》的 ${data.variants.length} 个变体 · 累计数据，发布后在「增长分析」导入 CSV 更新`} />
+        {hasData && <Btn small onClick={propose}>提议实验结论</Btn>}
+      </div>
+      <div className="p-4">
+        {!hasData ? (
+          <Notice kind="warn"><span>📥</span><div>这组变体还没有指标数据。发布后去「增长分析」导入平台后台导出的 CSV（按 UTM 自动关联），这里就会出现对照。</div></Notice>
+        ) : (
+          <>
+            <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${Math.min(data.variants.length, 3)}, 1fr)` }}>
+              {data.variants.map((v: any) => (
+                <div key={v.content_id} className={`border rounded-base p-3.5 ${v.content_id === currentId ? 'border-primary' : 'border-line'}`}>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-meta bg-surface-3 rounded px-1.5 py-0.5 text-muted whitespace-nowrap">
+                      变体 {v.variant_label}{v.variant_label === topLabel ? ' · 领先' : ''}
+                    </span>
+                    <Badge kind={stateBadgeKind(v.state)}>{STATE_LABEL[v.state] ?? v.state}</Badge>
+                  </div>
+                  <div className="text-small mt-2"><strong>假设：</strong>{v.hypothesis || '—'}</div>
+                  <div className="text-meta text-soft mt-0.5">{v.content_id}</div>
+                  {Object.keys(v.platforms ?? {}).length > 0 && (
+                    <div className="flex gap-3 mt-1.5 text-meta">
+                      {Object.keys(v.platforms).map(p => <Plat key={p} p={p} />)}
+                    </div>
+                  )}
+                  <div className="grid grid-cols-3 gap-2 mt-2.5">
+                    {COMPARE_STATS.map(([k, label]) => (
+                      <div key={k}>
+                        <div className="text-meta text-soft">{label}</div>
+                        <div className="text-[19px] font-semibold num">{(v.totals?.[k] ?? 0).toLocaleString()}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {(data.summary ?? []).length > 0 && (
+              <div className="mt-3">
+                <Notice>
+                  <span>🏁</span>
+                  <div>
+                    <strong>领先摘要：</strong>
+                    {data.summary.map((s: any) => {
+                      const m = COMPARE_METRIC_LABEL[s.metric] ?? s.metric;
+                      const base = `「${m}」变体 ${s.leader.variant}（${PLATFORM[s.leader.platform]?.name ?? s.leader.platform}）${s.leader.value.toLocaleString()} 次`;
+                      return s.runner_up && s.lead_pct !== null ? `${base}，比变体 ${s.runner_up.variant} 高 ${s.lead_pct}%` : base;
+                    }).join('；')}。
+                  </div>
+                </Notice>
+              </div>
+            )}
+          </>
+        )}
+        {conclusion && (
+          <div className="mt-3">
+            <Notice kind="ok">
+              <span>✅</span>
+              <div>
+                实验结论已生成并进入「假设与策略库」待确认列表：<strong>{conclusion}</strong>
+                <Link to="/library" className="ml-1 underline">去确认 →</Link>
+              </div>
+            </Notice>
+          </div>
+        )}
+        <div className="text-meta text-soft mt-2">结论提议基于上面的真实数字；你确认后才会写入假设库，Agent 不直接修改两库。</div>
+      </div>
+    </Card>
+  );
+}
+
+function Pipeline({ state }: { state: string }) {  // TRIAGED/BRIEFED 属于选题立项期，MEASURED_* 属于已发布观察期，ARCHIVED 视为全程完成
   const ALIAS: Record<string, number> = { TRIAGED: 0, BRIEFED: 0, MEASURED_24H: 7, MEASURED_72H: 7, MEASURED_7D: 7, ARCHIVED: 9 };
   const idx = state in ALIAS ? ALIAS[state] : PIPELINE_STEPS.indexOf(state);
   return (
@@ -113,6 +215,8 @@ export default function Studio() {
       </Card>
 
       <Pipeline state={c.state} />
+
+      {c.topic_id && <VariantCompare topicId={c.topic_id} currentId={c.id} />}
 
       <div className="grid gap-3.5" style={{ gridTemplateColumns: 'minmax(0,1.9fr) minmax(0,1fr)' }}>
         <div className="flex flex-col gap-3.5 min-w-0">

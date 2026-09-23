@@ -59,20 +59,36 @@ export class JudgeFailedError extends Error {
   }
 }
 
+/** 同一内容的推进正在执行中（HTTP 层映射为 409） */
+export class ContentBusyError extends Error {
+  constructor(contentId: string) {
+    super(`内容 ${contentId} 正在执行中，请等待本次推进完成`);
+  }
+}
+
+/** 进程内互斥：同一内容同时只允许一个 advance 在执行（防重复点击重复烧 LLM 费用）。单进程部署，无需跨进程锁。 */
+const advancing = new Set<string>();
+
 /**
  * 推进一个节点。返回 { from, to }；裁判失败时抛出 JudgeFailedError（状态已回退）。
  * JUDGED 之后的前进只能靠人工批准接口，Controller 无权推进。
  */
 export async function advance(contentId: string): Promise<{ from: State; to: State }> {
-  const from = currentState(contentId);
-  const step = ADVANCE[from];
-  if (!step) {
-    throw new Error(`状态 ${from} 没有自动推进动作（JUDGED 之后需要人工批准，发布需要人工操作）`);
+  if (advancing.has(contentId)) throw new ContentBusyError(contentId);
+  advancing.add(contentId);
+  try {
+    const from = currentState(contentId);
+    const step = ADVANCE[from];
+    if (!step) {
+      throw new Error(`状态 ${from} 没有自动推进动作（JUDGED 之后需要人工批准，发布需要人工操作）`);
+    }
+    await step.act(contentId);
+    // 裁判失败时 act 内已回退状态并抛错；走到这里说明 act 成功
+    const to = transition(contentId, step.to, { reason: `controller advance by ${step.agent}` });
+    return { from, to };
+  } finally {
+    advancing.delete(contentId);
   }
-  await step.act(contentId);
-  // 裁判失败时 act 内已回退状态并抛错；走到这里说明 act 成功
-  const to = transition(contentId, step.to, { reason: `controller advance by ${step.agent}` });
-  return { from, to };
 }
 
 /** 人工批准：写入批准记录并推进到 HUMAN_APPROVED（事务：要么全成功要么全回滚） */

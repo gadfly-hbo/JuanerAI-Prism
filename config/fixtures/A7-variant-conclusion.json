@@ -1,0 +1,20 @@
+{
+  "conclusion": "成本对比角度（变体 B）在首次分析转化上领先，但阅读量低于案例角度（变体 A），差异化成立",
+  "hypothesis_updates": [
+    {
+      "hypothesis": "同一主题下，理性决策角度比叙事角度更能促成首次真实分析",
+      "verdict": "confirmed",
+      "evidence": "变体 B 公众号首次分析 18 对变体 A 的 10，领先 80%；阅读量低 20% 说明转化率差异更大",
+      "action": "update"
+    }
+  ],
+  "new_hypotheses": [
+    {
+      "statement": "含成本/收益对比的知乎回答能带来更高的产品页点击率",
+      "audience": "数据敏感的个人用户",
+      "platform": "zhihu",
+      "metric": "product_page",
+      "suggested_experiment": "同主题再开一对变体：纯方法论 vs 方法论+成本对比，观察 product_page 差异"
+    }
+  ]
+}

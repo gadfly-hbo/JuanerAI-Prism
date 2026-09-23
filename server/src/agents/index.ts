@@ -4,6 +4,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { all, get, nextId, run } from '../db.ts';
 import { getProvider } from '../llm/index.ts';
 import { CLAIM_TYPES, claimStatus } from '../core/productTruth.ts';
+import { topicCompare } from '../core/variants.ts';
 
 // 四平台白名单：LLM 输出的 platform 必须命中，否则丢弃（防提示注入/幻觉写入非法值）
 export const PLATFORMS = ['wechat', 'zhihu', 'xiaohongshu', 'douyin'] as const;
@@ -48,10 +49,24 @@ export async function runStrategyAgent(campaignId: string) {
 /** A2 Research：生成 Evidence Pack，并把新 Claim 登记进 claims 表 */
 export async function runResearchAgent(contentId: string) {
   const content = get(`SELECT * FROM contents WHERE id = ?`, contentId);
+  // 同主题实验变体：向研究声明本变体角度与已有变体角度，保证研究服务差异化而非重复同角度
+  let variantBlock = '';
+  if (content?.topic_id) {
+    const ownHyp = JSON.parse(content.ir ?? '{}').content_hypothesis ?? '未声明';
+    const siblings = all(`SELECT id, variant_label, ir FROM contents WHERE topic_id = ? AND id != ?`, content.topic_id, contentId);
+    const sibLines = siblings
+      .map(s => `变体 ${s.variant_label}（${s.id}）：${JSON.parse(s.ir ?? '{}').content_hypothesis ?? '未声明'}`)
+      .join('\n');
+    variantBlock = `
+同主题实验变体：本内容是变体 ${content.variant_label}，差异化角度假设：${ownHyp}
+同选题已有变体（研究必须服务本变体的差异化角度，避免与其他变体重复切入）：
+${sibLines || '（暂无其他变体）'}
+`;
+  }
   const { data, usage, model } = await call(
     'A2-research',
     '你是 Topic & Research Agent。输出证据包：已验证事实、来源、反方观点、可使用案例、不可公开内容、待确认事项。不写正文。',
-    `主题：${content?.title}
+    `主题：${content?.title}${variantBlock}
 产品事实源能力 ID（product_capability 类 claim 的 source 必须从这里选，禁止编造）：
 PRODUCT-CAP-LOCAL-001（本地执行）、PRODUCT-CAP-EXCEL-001（Excel 直连）、PRODUCT-CAP-CANDIDATE-001（决策候选）。
 
@@ -204,4 +219,34 @@ export async function runGrowthAgent(contentId?: string) {
 /** A6 Publishing：导出发布包在 routes 中实现（文件 IO），这里只生成 UTM 规划 */
 export function planUtm(contentId: string) {
   return all(`SELECT platform, utm FROM channel_variants WHERE content_id = ?`, contentId);
+}
+
+/** A7 变体实验结论：基于同选题变体对照指标提议假设库更新（只提议，人类确认后入库） */
+export async function runVariantConclusionAgent(topicId: string) {
+  const compare = topicCompare(topicId);
+  if (!compare.variants.length) throw new Error('该选题还没有变体内容，无法生成实验结论');
+  const hasData = compare.variants.some(v => Object.keys(v.totals).length > 0);
+  if (!hasData) throw new Error('该选题的变体还没有导入任何指标数据（发布后在「增长分析」导入 CSV），无法生成实验结论');
+
+  const { data, usage, model } = await call(
+    'A7-variant-conclusion',
+    '你是 Growth & Learning Agent。基于同主题变体实验的对照指标生成实验结论，提议假设库更新。结论只描述数据支持什么，不夸大。你只有提议权。',
+    `选题：${compare.topic.title}
+实验对照（累计指标）：${JSON.stringify(compare.variants.map(v => ({ variant: v.variant_label, hypothesis: v.hypothesis, state: v.state, totals: v.totals, platforms: v.platforms })))}
+领先摘要：${JSON.stringify(compare.summary)}
+
+只输出如下结构的 JSON：
+{"conclusion":"实验结论一句话（基于数据，不夸大）","hypothesis_updates":[{"hypothesis":"与假设库中完全一致的原文","verdict":"confirmed|rejected|inconclusive","evidence":"引用对照数字","action":"promote_to_strategy|update"}],"new_hypotheses":[{"statement":"…","audience":"…","platform":"…","metric":"…","suggested_experiment":"…"}]}`);
+
+  for (const h of data.hypothesis_updates ?? []) {
+    run(`INSERT INTO library_proposals (kind, payload) VALUES (?, ?)`,
+      h.action === 'promote_to_strategy' ? 'strategy_promote' : 'hypothesis_update',
+      JSON.stringify({ ...h, topic_id: topicId }));
+  }
+  for (const h of data.new_hypotheses ?? []) {
+    run(`INSERT INTO library_proposals (kind, payload) VALUES ('hypothesis_new', ?)`,
+      JSON.stringify({ ...h, topic_id: topicId }));
+  }
+  recordRun(null, 'A7-variant-conclusion', { topicId }, data, usage, model);
+  return { ...data, proposals_created: (data.hypothesis_updates?.length ?? 0) + (data.new_hypotheses?.length ?? 0) };
 }

@@ -4,10 +4,11 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { all, get, nextId, run, touchContent, tx } from './db.ts';
-import { validateDraftIR } from './core/contentIR.ts';
 import { currentState, transition, latestJudgeResults, STATES } from './core/stateMachine.ts';
-import { advance, approve, reject, JudgeFailedError } from './core/controller.ts';
-import { runStrategyAgent, runGrowthAgent, PLATFORMS } from './agents/index.ts';
+import { advance, approve, reject, JudgeFailedError, ContentBusyError } from './core/controller.ts';
+import { adoptTopic, createVariant, listTopics, topicCompare } from './core/variants.ts';
+import { confirmProposal } from './core/library.ts';
+import { runStrategyAgent, runGrowthAgent, runVariantConclusionAgent, PLATFORMS } from './agents/index.ts';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const EXPORTS_DIR = path.join(ROOT, 'exports');
@@ -18,6 +19,9 @@ const wrap = (fn: (req: any, res: any) => any) => async (req: any, res: any) => 
   try { await fn(req, res); } catch (e: any) {
     if (e instanceof JudgeFailedError) {
       return res.status(422).json({ error: e.message, judge: e.judge, failures: e.failures, fallbackTo: e.fallbackTo });
+    }
+    if (e instanceof ContentBusyError) {
+      return res.status(409).json({ error: e.message });
     }
     const msg = e.message ?? String(e);
     res.status(msg.includes('不存在') ? 404 : 400).json({ error: msg });
@@ -69,7 +73,7 @@ api.get('/overview', wrap(async (_req, res) => {
 
 // ---------- 选题 ----------
 api.get('/topics', wrap(async (_req, res) => {
-  res.json(all(`SELECT * FROM topics ORDER BY created_at DESC`).map(t => ({ ...t, payload: JSON.parse(t.payload) })));
+  res.json(listTopics());
 }));
 
 api.post('/topics', wrap(async (req, res) => {
@@ -81,39 +85,23 @@ api.post('/topics', wrap(async (req, res) => {
 }));
 
 api.post('/topics/:id/adopt', wrap(async (req, res) => {
-  const t = get(`SELECT * FROM topics WHERE id = ?`, req.params.id);
-  if (!t) throw new Error('选题不存在');
-  if (t.status !== 'pending') throw new Error(`选题状态 ${t.status} 不能采纳`);
-  const payload = JSON.parse(t.payload);
-  const campaignId = payload.campaign_id ?? req.body?.campaign_id;
-  if (!campaignId) throw new Error('缺少 campaign_id（选题未关联活动时需在请求中指定）');
-  const contentId = nextId('contents', 'CNT-2026', 4);
-  // 手动添加的选题可能只有标题：用占位文案补齐 IR 草稿必填字段，研究阶段再填实
-  const ir = {
-    content_id: contentId, campaign_id: campaignId, title: t.title,
-    objective: payload.objective ?? 'O2_激活',
-    funnel_stage: payload.funnel_stage ?? 'awareness',
-    persona: { role: payload.persona ?? '待研究确定', maturity: '' },
-    job_to_be_done: payload.user_problem ?? `围绕「${t.title}」要解决的问题（待研究确定）`,
-    user_problem: payload.user_problem ?? `围绕「${t.title}」的用户问题（待研究确定）`,
-    core_thesis: payload.suggested_thesis ?? '待研究后确定',
-    content_hypothesis: payload.rationale ?? '待验证',
-    key_claims: [],
-    counterpoints: ['待 Research Agent 补充'],
-    canonical_structure: {},
-    channel_intents: {},
-    success_metrics: Object.keys(payload.expected_metrics ?? {}).length ? Object.keys(payload.expected_metrics) : ['产品页点击'],
-    risk_level: 'medium',
-    approval_required: true,
-  };
-  const v = validateDraftIR(ir);
-  if (!v.ok) throw new Error(`IR 草稿不合法：${v.errors.join('；')}`);
-  tx(() => {
-    run(`INSERT INTO contents (id, campaign_id, title, state, ir, risk_level) VALUES (?, ?, ?, 'TRIAGED', ?, ?)`,
-      contentId, campaignId, t.title, JSON.stringify(ir), payload.risk === '低' ? 'low' : 'medium');
-    run(`UPDATE topics SET status = 'adopted' WHERE id = ?`, req.params.id);
-  });
-  res.json({ content_id: contentId, state: 'TRIAGED' });
+  res.json(adoptTopic(req.params.id, { campaignId: req.body?.campaign_id }));
+}));
+
+// 同选题开实验变体（B/C）：独立内容、独立流水线，必填差异化假设
+api.post('/topics/:id/variant', wrap(async (req, res) => {
+  const { hypothesis, persona, funnel_stage } = req.body ?? {};
+  res.json(createVariant(req.params.id, { hypothesis, persona, funnelStage: funnel_stage }));
+}));
+
+// 同选题变体对照（变体 × 平台累计指标 + 领先摘要）
+api.get('/topics/:id/variants', wrap(async (req, res) => {
+  res.json(topicCompare(req.params.id));
+}));
+
+// 实验结论提议：基于对照数据生成假设库更新提议（人工确认后才入库）
+api.post('/topics/:id/conclusion-proposal', wrap(async (req, res) => {
+  res.json(await runVariantConclusionAgent(req.params.id));
 }));
 
 api.post('/topics/:id/shelve', wrap(async (req, res) => {
@@ -317,21 +305,7 @@ api.get('/library/proposals', wrap(async (_req, res) =>
     .map(p => ({ ...p, payload: JSON.parse(p.payload) })))));
 
 api.post('/library/proposals/:id/confirm', wrap(async (req, res) => {
-  const p = get(`SELECT * FROM library_proposals WHERE id = ?`, req.params.id);
-  if (!p || p.status !== 'pending') throw new Error('提议不存在或已处理');
-  const payload = JSON.parse(p.payload);
-  if (p.kind === 'hypothesis_new') {
-    const id = nextId('hypotheses', 'HYP', 3);
-    run(`INSERT INTO hypotheses (id, statement, audience, platform, metric) VALUES (?, ?, ?, ?, ?)`,
-      id, payload.statement, payload.audience ?? null, payload.platform ?? null, payload.metric ?? null);
-  } else if (p.kind === 'strategy_promote') {
-    const id = nextId('strategies', 'STR', 3);
-    run(`INSERT INTO strategies (id, title, practice, effect, evidence_windows) VALUES (?, ?, ?, ?, ?)`,
-      id, payload.hypothesis, payload.evidence, '待补充量化口径', 3);
-    run(`UPDATE hypotheses SET status = 'confirmed', updated_at = datetime('now') WHERE statement = ?`, payload.hypothesis);
-  }
-  run(`UPDATE library_proposals SET status = 'confirmed' WHERE id = ?`, p.id);
-  res.json({ ok: true });
+  res.json(confirmProposal(req.params.id));
 }));
 
 api.post('/library/proposals/:id/dismiss', wrap(async (req, res) => {

@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS topics (
 CREATE TABLE IF NOT EXISTS contents (
   id TEXT PRIMARY KEY,
   campaign_id TEXT NOT NULL REFERENCES campaigns(id),
+  topic_id TEXT,                   -- 选题关联（同主题实验变体的分组键）
+  variant_label TEXT,              -- 实验标签 A/B/C（按创建序分配）
   title TEXT NOT NULL,
   state TEXT NOT NULL DEFAULT 'IDEA',
   ir TEXT,                        -- Content IR JSON
@@ -132,6 +134,7 @@ CREATE TABLE IF NOT EXISTS hypotheses (
   audience TEXT,
   platform TEXT,
   metric TEXT,
+  topic_id TEXT,                            -- 来源实验（同主题变体组）回链
   status TEXT NOT NULL DEFAULT 'testing',   -- confirmed | rejected | testing | inconclusive
   support INTEGER NOT NULL DEFAULT 0,
   oppose INTEGER NOT NULL DEFAULT 0,
@@ -186,6 +189,15 @@ CREATE TABLE IF NOT EXISTS runs (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 `);
+
+// 轻量迁移：CREATE TABLE IF NOT EXISTS 不会给已存在的旧库加列（v0.1.0 库升级到 v0.2 用）
+for (const stmt of [
+  `ALTER TABLE contents ADD COLUMN topic_id TEXT`,
+  `ALTER TABLE contents ADD COLUMN variant_label TEXT`,
+  `ALTER TABLE hypotheses ADD COLUMN topic_id TEXT`,
+]) {
+  try { db.exec(stmt); } catch { /* 列已存在 */ }
+}
 
 export function get(sql: string, ...params: any[]) {
   return db.prepare(sql).get(...params) as any;
