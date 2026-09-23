@@ -10,5 +10,8 @@ prototype/output/
 output/
 .zcode/
 
+# mimosa 工具本地运行状态（机器局部，不入库）
+.mimosa/
+
 # dev-flow 本地状态（机器局部，不入库；其余 .flow/*.md 产物随仓库提交）
 .flow/state.json
